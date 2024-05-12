@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "871870660977",
+    "project_id": "sketchtrain-a951e",
+    "storage_bucket": "sketchtrain-a951e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871870660977:android:07560d457c2169bfcbb6d0",
+        "android_client_info": {
+          "package_name": "com.example.sketchtrain"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDKJQNNZTTs7TDZkS-9WhssJYA7tvoQbQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

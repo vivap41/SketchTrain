@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name" translatable="false">SketchTrain</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Create new account</string>
+    <string name="menu">Menu</string>
+    <string name="sketchtrain_title" translatable="false">SketchTrain Title</string>
+    <string name="password">Password</string>
+    <string name="e_mail">E-mail</string>
+    <string name="sketchtrain_logo" translatable="false">SketchTrain Logo</string>
+    <string name="set_up_your_new_training">Set up your new training!</string>
+    <string name="step_1">Step 1</string>
+    <string name="choose_your_training">Choose your training</string>
+    <string name="strength">Strength</string>
+    <string name="endurance">Endurance</string>
+    <string name="hiit" translatable="false">HIIT</string>
+    <string name="first_steps">First Steps</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="forgot_password">¿Has olvidado tu contraseña?</string>
+    <string name="log_in">Iniciar sesión</string>
+    <string name="sign_up">Crear cuenta nueva</string>
+    <string name="menu">Menú</string>
+    <string name="password">Contraseña</string>
+    <string name="e_mail">Correo</string>
+    <string name="set_up_your_new_training">¡Crea tu nuevo entrenamiento!</string>
+    <string name="step_1">Paso 1</string>
+    <string name="choose_your_training">Elige tu entrenamiento</string>
+    <string name="strength">Fuerza</string>
+    <string name="endurance">Resistencia</string>
+</resources>
