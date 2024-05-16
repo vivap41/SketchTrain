@@ -1,30 +1,34 @@
 package com.example.sketchtrain.ui.newusers
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.example.sketchtrain.R
 import com.example.sketchtrain.databinding.FirstStepBinding
-class FirstStep : Fragment(){
+class  FirstStep : Fragment() {
     private var _binding: FirstStepBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+        inflater: android.view.LayoutInflater,
+        container: android.view.ViewGroup?,
+        savedInstanceState: android.os.Bundle?
+    ): android.view.View {
         _binding = FirstStepBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        val root: android.view.View = binding.root
+
+        binding.infoStrength.setOnClickListener {
+            // Create and show the dialog.
+            val dialogView = layoutInflater.inflate(R.layout.strength_dialog_popup, null)
+            val dialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create()
+            dialog.show()
+        }
+
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-}}
+    }
+}

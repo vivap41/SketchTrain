@@ -9,7 +9,7 @@
     tools:openDrawer="start">
     <include
         android:id="@+id/app_bar_main"
-        layout="@layout/prueba_menu_main_app_bar"
+        layout="@layout/sidemenu_app_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <com.google.android.material.navigation.NavigationView
@@ -18,6 +18,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
+        app:headerLayout="@layout/sidemenu_header"
         app:menu="@menu/menu_lat_prueba" />
 </androidx.drawerlayout.widget.DrawerLayout>

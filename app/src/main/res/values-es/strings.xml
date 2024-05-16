@@ -11,4 +11,6 @@
     <string name="choose_your_training">Elige tu entrenamiento</string>
     <string name="strength">Fuerza</string>
     <string name="endurance">Resistencia</string>
+    <string name="first_steps">Primeros Pasos</string>
+    <string name="hint_text_strength">¡Personaliza tus rutinas de entrenamiento para alcanzar tus objetivos! Elige entre Powerlifting o Hipertrofia. ¡Guarda tus sesiones con todos los detalles necesarios para un seguimiento completo de tu evolución!</string>
 </resources>

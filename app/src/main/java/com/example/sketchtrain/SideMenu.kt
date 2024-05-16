@@ -9,15 +9,17 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sketchtrain.databinding.PruebaMenuBinding
+import com.example.sketchtrain.databinding.FirstStepBinding
+import com.example.sketchtrain.databinding.SidemenuAppBarBinding
+import com.example.sketchtrain.databinding.SidemenuNavViewBinding
 
 class SideMenu  : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: PruebaMenuBinding
+    private lateinit var binding: SidemenuNavViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = PruebaMenuBinding.inflate(layoutInflater)
+        binding = SidemenuNavViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)

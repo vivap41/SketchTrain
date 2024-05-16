@@ -15,4 +15,5 @@
     <string name="endurance">Endurance</string>
     <string name="hiit" translatable="false">HIIT</string>
     <string name="first_steps">First Steps</string>
+    <string name="hint_text_strength">Customize your training routines to achieve your goals! Choose between Powerlifting or Hypertrophy. Save your sessions with all the necessary details for a complete tracking of your progress!</string>
 </resources>
