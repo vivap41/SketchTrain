@@ -11,6 +11,41 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Background color. -->
+        <item name="android:windowBackground">@color/white</item>
+        <!--Navigation bar color-->
+        <item name="android:navigationBarColor">@color/black</item>
+        <!-- Navigation bar divider color. -->
+        <item name="android:navigationBarDividerColor">@color/black</item>
+
+        <item name="buttonStyle">@style/AppButtonStyle</item>
+
     </style>
 
+    <style name="LoginTextInputOuterFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+    </style>
+
+    <style name="LoginTextInputInnerFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="DefaultButton">
+        <item name="android:backgroundTint">#00FFFFFF</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:strokeColor">#000000</item>
+    </style>
+
+    <style name="AppButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:stateListAnimator">@animator/button_scale_animator</item>
+    </style>
 </resources>

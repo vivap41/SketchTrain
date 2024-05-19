@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="forgot_password">¿Has olvidado tu contraseña?</string>
-    <string name="log_in">Iniciar sesión</string>
-    <string name="sign_up">Crear cuenta nueva</string>
+    <string name="sign_up">Regístrate</string>
     <string name="menu">Menú</string>
     <string name="password">Contraseña</string>
     <string name="e_mail">Correo</string>
@@ -13,4 +12,23 @@
     <string name="endurance">Resistencia</string>
     <string name="first_steps">Primeros Pasos</string>
     <string name="hint_text_strength">¡Personaliza tus rutinas de entrenamiento para alcanzar tus objetivos! Elige entre Powerlifting o Hipertrofia. ¡Guarda tus sesiones con todos los detalles necesarios para un seguimiento completo de tu evolución!</string>
+    <string name="hint_text_endurance">¡Desata tu potencial en la resistencia! Ya sea corriendo, nadando ¡o más! Guarda tus sesiones con todo lo que necesitas para alcanzar tus metas.</string>
+    <string name="hint_text_hit">¡Intensifica tu entrenamiento con HIIT! Registra tus tiempos de cada ejercicio y sigue la secuencia para obtener resultados óptimos. ¡Potencia tu rendimiento como nunca antes!</string>
+
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="no_acc">Crear cuenta nueva</string>
+    <string name="alternative_log_in">O inicia sesión con:</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="already_registered_sign_in">¿Ya tienes una cuenta? Inicia sesión</string>
+    <string name="choose_category">Elige categoría</string>
+    <string name="hint_text_hiper">¡Maximiza tu crecimiento muscular con nuestro sistema de hipertrofia avanzada! Registra cada detalle: series, tipos de series (normales, drop-sets, supersets y clusters), repeticiones y fechas clave como el día de entrenamiento, fecha de inicio y fecha final. ¡Construye tu camino hacia un cuerpo más fuerte y definido!</string>
+    <string name="hint_text_power">¡Domina el arte del Powerlifting con nuestra herramienta completa! Organiza tus sesiones con ejercicios principales y accesorios clave. Además, calcula tu máximo de una repetición (1RM) para optimizar tu progreso. ¡Prepárate para superar tus límites y alcanzar nuevas alturas de fuerza!</string>
+    <string name="hipetrophy">Hipertrofia</string>
+    <string name="training_desc">Nombre del entrenamiento</string>
+    <string name="type_your_training_desc">Escribe el nombre de tu entrenamiento</string>
+    <string name="next">Siguiente</string>
+    <string name="routine">Rutina</string>
+    <string name="routine_description">Escribe el nombre de tu rutina</string>
+    <string name="add_exercises">Añadir Ejercicios</string>
+
 </resources>

@@ -6,6 +6,8 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="@string/first_steps" />
+            android:background="@color/nav_item_color"
+            android:enabled="true"
+            android:title="@string/first_steps"/>
     </group>
 </menu>

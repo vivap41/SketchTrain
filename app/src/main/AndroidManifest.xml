@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:allowBackup="true"
@@ -13,7 +14,7 @@
         android:theme="@style/Theme.SketchTrain"
         tools:targetApi="31">
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".login.SignInActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -23,7 +24,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SideMenu"
+            android:name=".login.SignUpActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ui.newusers.SideMenu"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ui.newusers.strength.SecondStep"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ui.newusers.strength.ThirdStep"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".ui.newusers.strength.routine.FourthStep"
             android:exported="true">
         </activity>
     </application>

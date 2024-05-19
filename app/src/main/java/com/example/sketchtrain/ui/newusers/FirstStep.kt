@@ -1,10 +1,13 @@
 package com.example.sketchtrain.ui.newusers
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.example.sketchtrain.R
-import com.example.sketchtrain.databinding.FirstStepBinding
-class  FirstStep : Fragment() {
-    private var _binding: FirstStepBinding? = null
+import com.example.sketchtrain.databinding.NewusersUi1StepBinding
+import com.example.sketchtrain.ui.newusers.strength.SecondStep
+
+class FirstStep : Fragment() {
+    private var _binding: NewusersUi1StepBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -12,18 +15,57 @@ class  FirstStep : Fragment() {
         container: android.view.ViewGroup?,
         savedInstanceState: android.os.Bundle?
     ): android.view.View {
-        _binding = FirstStepBinding.inflate(inflater, container, false)
+        _binding = NewusersUi1StepBinding.inflate(inflater, container, false)
         val root: android.view.View = binding.root
 
+        // Listeners --> Buttons
+        val buttonStr = binding.btnStrength
+        buttonStr.setOnClickListener {
+        val intent = Intent(requireContext(), SecondStep::class.java)
+            startActivity(intent)
+        }
+
+        // Listeners --> Dialog
         binding.infoStrength.setOnClickListener {
-            // Create and show the dialog.
-            val dialogView = layoutInflater.inflate(R.layout.strength_dialog_popup, null)
+            val dialogView = layoutInflater.inflate(R.layout.newusers_ui_dialog_popup_strength, null)
             val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .create()
             dialog.show()
+
+            dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
+                dialog.dismiss()
+                // Launch SecondStep activity
+                dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
+                    dialog.dismiss()
+                }
+            }
         }
 
+        binding.infoEndurance.setOnClickListener {
+            // Create and show the dialog.
+            val dialogView = layoutInflater.inflate(R.layout.newusers_ui_dialog_popup_endurance, null)
+            val dialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create()
+            dialog.show()
+
+            dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+
+        binding.infoHIIT.setOnClickListener {
+            // Create and show the dialog.
+            val dialogView = layoutInflater.inflate(R.layout.newusers_ui_dialog_popup_hiit, null)
+            val dialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .create()
+            dialog.show()
+            dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
+                dialog.dismiss()
+            }
+        }
         return root
     }
 

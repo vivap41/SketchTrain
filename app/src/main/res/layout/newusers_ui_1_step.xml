@@ -26,11 +26,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/etTrainName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="172dp"
         android:text="@string/set_up_your_new_training"
         android:textSize="17sp"
@@ -39,77 +40,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="214dp"
-        android:text="@string/step_1"
-        android:textStyle="bold|italic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="244dp"
         android:text="@string/choose_your_training"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.162"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/etTrainName"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/button_background"
         android:id="@+id/btnStrength"
-        style="@style/DefaultButton"
-        android:layout_width="300dp"
+        android:layout_width="275dp"
         android:layout_height="81dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="324dp"
+        android:layout_marginTop="332dp"
         android:text="@string/strength"
         android:textDirection="locale"
         android:textSize="16sp"
         app:cornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeWidth="2dp" />
 
-    <Button
-        android:id="@+id/btnEndurance"
-        style="@style/DefaultButton"
-        android:layout_width="300dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="425dp"
-        android:text="@string/endurance"
-        android:textDirection="locale"
-        android:textSize="16sp"
-        app:cornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnStrength"
-        app:layout_constraintHorizontal_bias="0.144"
-        app:layout_constraintStart_toStartOf="@+id/btnStrength"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeWidth="2dp" />
-
-    <Button
-        android:id="@+id/btnHIIT"
-        style="@style/DefaultButton"
-        android:layout_width="300dp"
-        android:layout_height="81dp"
-        android:layout_marginTop="525dp"
-        android:text="@string/hiit"
-        android:textDirection="locale"
-        android:textSize="16sp"
-        app:cornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnStrength"
-        app:layout_constraintHorizontal_bias="0.144"
-        app:layout_constraintStart_toStartOf="@+id/btnStrength"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeWidth="2dp" />
 
     <ImageButton
         android:id="@+id/infoStrength"
@@ -118,8 +76,70 @@
         android:background="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/btnStrength"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.325"
         app:layout_constraintStart_toEndOf="@+id/btnStrength"
         app:layout_constraintTop_toTopOf="@+id/btnStrength"
+        app:layout_constraintVertical_bias="0.553"
+        app:srcCompat="@drawable/badge_info" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/button_background"
+        android:id="@+id/btnPower"
+        android:layout_width="275dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="432dp"
+        android:text="@string/endurance"
+        android:textDirection="locale"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnStrength"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnStrength"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="2dp" />
+
+    <ImageButton
+        android:id="@+id/infoEndurance"
+        android:layout_width="33dp"
+        android:layout_height="34dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPower"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintStart_toEndOf="@+id/btnStrength"
+        app:layout_constraintTop_toTopOf="@+id/btnPower"
+        app:layout_constraintVertical_bias="0.574"
+        app:srcCompat="@drawable/badge_info" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/button_background"
+        android:id="@+id/btnHIIT"
+        android:layout_width="275dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="532dp"
+        android:text="@string/hiit"
+        android:textDirection="locale"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnStrength"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnStrength"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="2dp" />
+
+
+    <ImageButton
+        android:id="@+id/infoHIIT"
+        android:layout_width="33dp"
+        android:layout_height="34dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/btnHIIT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintStart_toEndOf="@+id/btnStrength"
+        app:layout_constraintTop_toTopOf="@+id/btnHIIT"
+        app:layout_constraintVertical_bias="0.574"
         app:srcCompat="@drawable/badge_info" />
 
 
