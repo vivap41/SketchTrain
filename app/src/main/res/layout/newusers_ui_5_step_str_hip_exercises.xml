@@ -39,54 +39,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="244dp"
-        android:text="@string/training_desc"
+        android:layout_marginTop="228dp"
+        android:text="@string/routine"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/etTrainName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/trainLayout"
-        style="@style/LoginTextInputOuterFieldStyle"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_height="350dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/separator"
-        app:layout_constraintVertical_bias="0.26">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.724"
+        tools:layout_editor_absoluteX="0dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/trainEt"
-            style="@style/LoginTextInputInnerFieldStyle"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvExerciseStr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/type_your_training_desc" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnNext"
+        android:id="@+id/btnAccept"
         android:layout_width="253dp"
         android:layout_height="55dp"
+        android:layout_marginTop="432dp"
         android:background="@drawable/button_background"
-        android:text="@string/next"
+        android:text="Accept"
         android:textDirection="locale"
         android:textSize="16sp"
         app:cornerRadius="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trainLayout"
-        app:layout_constraintVertical_bias="0.725"
+        app:layout_constraintTop_toBottomOf="@+id/separator"
         app:strokeWidth="2dp" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,11 +36,12 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.newusers.strength.ThirdStep"
+            android:name=".ui.newusers.strength.hiper.ThirdStep"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.newusers.strength.routine.FourthStep"
+            android:name=".ui.newusers.strength.hiper.routine.FourthStep"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
         </activity>
     </application>

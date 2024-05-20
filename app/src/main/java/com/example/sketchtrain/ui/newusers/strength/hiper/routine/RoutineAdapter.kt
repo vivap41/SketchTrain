@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.newusers.strength.routine
+package com.example.sketchtrain.ui.newusers.strength.hiper.routine
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.google.android.material.textfield.TextInputEditText
 
-class ExerciseAdapter(private val exercises: MutableList<Exercise>) : RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
+class RoutineAdapter(private val routine: MutableList<Routine>) : RecyclerView.Adapter<RoutineAdapter.ExerciseViewHolder>() {
 
     inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val description: TextInputEditText = itemView.findViewById(R.id.descEt)
@@ -23,8 +23,8 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>) : RecyclerVi
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable?) {
-                    if (s != null && s.isNotEmpty() && adapterPosition == exercises.size - 1) {
-                        addExercise(Exercise())
+                    if (s != null && s.isNotEmpty() && adapterPosition == routine.size - 1) {
+                        addRoutine(Routine())
                     }
                 }
             })
@@ -37,15 +37,18 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-        val exercise = exercises[position]
-        holder.description.setText(exercise.description)
+        val routine = routine[position]
+        holder.description.setText(routine.description)
         // Configurar el botón u otros elementos aquí si es necesario
+        holder.button.setOnClickListener {
+            // Acciones al hacer clic en el botón
+        }
     }
 
-    override fun getItemCount() = exercises.size
+    override fun getItemCount() = routine.size
 
-    fun addExercise(exercise: Exercise) {
-        exercises.add(exercise)
-        notifyItemInserted(exercises.size - 1)
+    fun addRoutine(routine: Routine) {
+        this.routine.add(routine)
+        notifyItemInserted(this.routine.size - 1)
     }
 }

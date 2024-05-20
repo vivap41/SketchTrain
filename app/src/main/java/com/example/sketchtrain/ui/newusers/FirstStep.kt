@@ -66,6 +66,7 @@ class FirstStep : Fragment() {
                 dialog.dismiss()
             }
         }
+
         return root
     }
 

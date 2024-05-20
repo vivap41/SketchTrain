@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sketchtrain.databinding.NewusersUi2StepStrBinding
+import com.example.sketchtrain.ui.newusers.strength.hiper.ThirdStep
 
 class SecondStep : AppCompatActivity() {
 
