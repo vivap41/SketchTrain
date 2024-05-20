@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
+import com.example.sketchtrain.dataclasses.Routine
 import com.google.android.material.textfield.TextInputEditText
 
 class RoutineAdapter(private val routine: MutableList<Routine>) : RecyclerView.Adapter<RoutineAdapter.ExerciseViewHolder>() {
