@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
+import com.example.sketchtrain.adapters.Step4StrHiperRoutineAdapter
 import com.example.sketchtrain.dataclasses.Routine
 
 class Step4StrHiperRoutine: AppCompatActivity() {

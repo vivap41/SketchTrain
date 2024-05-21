@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.newusers
+package com.example.sketchtrain.adapters
 
 import android.text.Editable
 import android.text.TextWatcher
