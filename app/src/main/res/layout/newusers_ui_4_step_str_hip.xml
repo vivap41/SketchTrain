@@ -28,7 +28,7 @@
 
 
     <TextView
-        android:id="@+id/etTrainName"
+        android:id="@+id/tvTrainName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -51,9 +51,9 @@
         app:layout_constraintBottom_toTopOf="@+id/rvRoutineStr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/etTrainName"
+        app:layout_constraintStart_toStartOf="@+id/tvTrainName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRoutineStr"

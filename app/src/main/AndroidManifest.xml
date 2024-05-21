@@ -44,6 +44,12 @@
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
         </activity>
+        <activity android:name=".ui.newusers.Step5StrHiperExercise"
+            android:exported="true">
+        </activity>
+        <activity android:name=".ui.newusers.Step5StrHiperExerciseList"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

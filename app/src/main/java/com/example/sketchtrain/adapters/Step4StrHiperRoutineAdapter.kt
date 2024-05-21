@@ -1,14 +1,17 @@
 package com.example.sketchtrain.adapters
 
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Routine
+import com.example.sketchtrain.ui.newusers.Step5StrHiperExercise
 import com.google.android.material.textfield.TextInputEditText
 
 class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>) : RecyclerView.Adapter<Step4StrHiperRoutineAdapter.ExerciseViewHolder>() {
@@ -40,9 +43,17 @@ class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>) : R
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
         val routine = routine[position]
         holder.description.setText(routine.description)
-        // Configurar el botón u otros elementos aquí si es necesario
         holder.button.setOnClickListener {
-            // Acciones al hacer clic en el botón
+            val context = holder.itemView.context
+            val descriptionText = holder.description.text.toString()
+            if (descriptionText.isEmpty()) {
+                Toast.makeText(context, "Please enter a description", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(context, Step5StrHiperExercise::class.java).apply {
+                    putExtra("EXERCISE_DESCRIPTION", descriptionText)
+                }
+                context.startActivity(intent)
+            }
         }
     }
 
