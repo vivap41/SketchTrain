@@ -4,9 +4,8 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.example.sketchtrain.R
 import com.example.sketchtrain.databinding.NewusersUi1StepBinding
-import com.example.sketchtrain.ui.newusers.strength.SecondStep
 
-class FirstStep : Fragment() {
+class Step1 : Fragment() {
     private var _binding: NewusersUi1StepBinding? = null
     private val binding get() = _binding!!
 
@@ -21,7 +20,7 @@ class FirstStep : Fragment() {
         // Listeners --> Buttons
         val buttonStr = binding.btnStrength
         buttonStr.setOnClickListener {
-        val intent = Intent(requireContext(), SecondStep::class.java)
+        val intent = Intent(requireContext(), Step2Str::class.java)
             startActivity(intent)
         }
 
@@ -35,7 +34,7 @@ class FirstStep : Fragment() {
 
             dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
                 dialog.dismiss()
-                // Launch SecondStep activity
+                // Launch ``Step2Str`` activity
                 dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
                     dialog.dismiss()
                 }

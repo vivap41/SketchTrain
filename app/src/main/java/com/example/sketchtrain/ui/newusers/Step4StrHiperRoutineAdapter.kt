@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.newusers.strength.hiper.routine
+package com.example.sketchtrain.ui.newusers
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,7 +11,7 @@ import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Routine
 import com.google.android.material.textfield.TextInputEditText
 
-class RoutineAdapter(private val routine: MutableList<Routine>) : RecyclerView.Adapter<RoutineAdapter.ExerciseViewHolder>() {
+class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>) : RecyclerView.Adapter<Step4StrHiperRoutineAdapter.ExerciseViewHolder>() {
 
     inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val description: TextInputEditText = itemView.findViewById(R.id.descEt)

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.sketchtrain.R
 import com.example.sketchtrain.databinding.NewusersSidemenuNavViewBinding
 
-class SideMenu  : AppCompatActivity() {
+class Step1SideMenu  : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: NewusersSidemenuNavViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {

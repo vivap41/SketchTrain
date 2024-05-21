@@ -1,53 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/none"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="389dp"
-        android:layout_height="63dp"
-        android:background="@color/white">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/descLayout"
-            style="@style/LoginTextInputOuterFieldStyle"
-            android:layout_width="225dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnEx"
-            app:layout_constraintHorizontal_bias="0.129"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.529">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descLayout"
+        style="@style/LoginTextInputOuterFieldStyle"
+        android:layout_width="260dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnEx"
+        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.529">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/descEt"
-                style="@style/LoginTextInputInnerFieldStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/routine_description"
-                android:inputType="textEmailAddress" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/descEt"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/routine_description"
+            android:inputType="textEmailAddress" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnEx"
-            android:layout_width="115dp"
-            android:layout_height="51dp"
-            android:layout_marginEnd="36dp"
-            android:background="@drawable/button_background2"
-            android:text="@string/add_exercises"
-            android:textDirection="locale"
-            android:textSize="8sp"
-            app:cornerRadius="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/descLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/descLayout"
-            app:layout_constraintVertical_bias="1.0"
-            app:strokeWidth="2dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.005" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnEx"
+        android:layout_width="115dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/button_background2"
+        android:text="@string/add_exercises"
+        android:textDirection="locale"
+        android:textSize="8sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/descLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/descLayout"
+        app:layout_constraintVertical_bias="1.0"
+        app:strokeWidth="2dp" />
 
 </LinearLayout>

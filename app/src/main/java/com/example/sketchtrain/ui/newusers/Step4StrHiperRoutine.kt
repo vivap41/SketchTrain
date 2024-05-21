@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.newusers.strength.hiper.routine
+package com.example.sketchtrain.ui.newusers
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Routine
 
-class FourthStep: AppCompatActivity() {
+class Step4StrHiperRoutine: AppCompatActivity() {
 
-    private lateinit var routineAdapter: RoutineAdapter
+    private lateinit var Step4StrHiperRoutineAdapter: Step4StrHiperRoutineAdapter
     private lateinit var rvExStr: RecyclerView
     private lateinit var btnFinish: AppCompatButton
 
@@ -20,8 +20,8 @@ class FourthStep: AppCompatActivity() {
 
         rvExStr = findViewById(R.id.rvRoutineStr)
         val routines = mutableListOf(Routine())  // Inicializa con un elemento vacío
-        routineAdapter = RoutineAdapter(routines)
-        rvExStr.adapter = routineAdapter
+        Step4StrHiperRoutineAdapter = Step4StrHiperRoutineAdapter(routines)
+        rvExStr.adapter = Step4StrHiperRoutineAdapter
         rvExStr.layoutManager = LinearLayoutManager(this)
         rvExStr.setHasFixedSize(true)
 
