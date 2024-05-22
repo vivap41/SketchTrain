@@ -50,7 +50,7 @@ class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>) : R
                 Toast.makeText(context, "Please enter a description", Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(context, Step5StrHiperExercise::class.java).apply {
-                    putExtra("EXERCISE_DESCRIPTION", descriptionText)
+                    putExtra("ROUTINE_DESCRIPTION", descriptionText)
                 }
                 context.startActivity(intent)
             }
