@@ -20,11 +20,10 @@
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginTop="204dp"
         android:layout_marginEnd="-1dp"
         android:background="#8AD8D8D8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etTrainName" />
 
 
     <TextView
@@ -32,26 +31,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="172dp"
-        android:text="@string/set_up_your_new_training"
+        android:layout_marginTop="140dp"
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/set_up_your_new_training"
+        />
+
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="36dp"
         android:text="@string/choose_category"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.005"
         app:layout_constraintStart_toStartOf="@+id/etTrainName"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/etTrainName" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnEx"

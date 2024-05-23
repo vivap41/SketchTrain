@@ -20,7 +20,7 @@ class Step5StrHiperExercise : AppCompatActivity() {
             startActivity(intent)
         }
         val description = intent.getStringExtra("ROUTINE_DESCRIPTION")
-        val tvRout: TextView = findViewById(R.id.tvTitle) // Asegúrate de tener un TextView con este id en tu layout
+        val tvRout: TextView = findViewById(R.id.tvTitle)
         tvRout.text = "$description Routine"
 
 

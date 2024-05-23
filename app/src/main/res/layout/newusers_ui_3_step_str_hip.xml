@@ -20,11 +20,10 @@
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginTop="204dp"
         android:layout_marginEnd="-1dp"
         android:background="#8AD8D8D8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etTrainName" />
 
 
     <TextView
@@ -32,25 +31,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="172dp"
-        android:text="@string/set_up_your_new_training"
+        android:layout_marginTop="140dp"
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/set_up_your_new_training"
+        />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="24dp"
         android:text="@string/training_desc"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/etTrainName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/separator" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/trainLayout"
@@ -60,9 +60,10 @@
         android:layout_marginHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.218"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/separator"
-        app:layout_constraintVertical_bias="0.26">
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.007">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/trainEt"
@@ -75,7 +76,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNext"
         android:layout_width="253dp"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:background="@drawable/button_background"
         android:text="@string/next"
         android:textDirection="locale"
@@ -85,7 +86,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/trainLayout"
-        app:layout_constraintVertical_bias="0.725"
+        app:layout_constraintVertical_bias="0.051"
         app:strokeWidth="2dp" />
 
 

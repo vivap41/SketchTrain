@@ -16,36 +16,40 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/name" />
 
+
     <View
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="-1dp"
         android:background="#8AD8D8D8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="228dp"
         android:text="@string/routine"
         android:textSize="28sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/separator" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="340dp"
+        android:id="@+id/constraintLayout2"
+        android:layout_width="410dp"
+        android:layout_marginTop="230dp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.724"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="0.649">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvExerciseStr"
@@ -72,18 +76,4 @@
             app:strokeWidth="2dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAccept"
-        android:layout_width="253dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="432dp"
-        android:background="@drawable/button_background"
-        android:text="Accept"
-        android:textDirection="locale"
-        android:textSize="16sp"
-        app:cornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/separator"
-        app:strokeWidth="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

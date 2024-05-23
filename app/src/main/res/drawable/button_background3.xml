@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/button_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/none" /> <!-- Fondo del botón -->
+            <corners android:radius="4dp" /> <!-- Radio de los bordes -->
+        </shape>
+    </item>
+    <item android:left="1dp" android:top="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp"
+                android:color="#A8A8A8" /> <!-- Borde del botón -->
+            <corners android:radius="4dp" /> <!-- Radio de los bordes -->
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+</layer-list>
