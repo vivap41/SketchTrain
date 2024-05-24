@@ -14,7 +14,7 @@ import com.example.sketchtrain.dataclasses.Routine
 import com.example.sketchtrain.ui.newusers.Step5StrHiperExercise
 import com.google.android.material.textfield.TextInputEditText
 
-class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>) : RecyclerView.Adapter<Step4StrHiperRoutineAdapter.ExerciseViewHolder>() {
+class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>, private val listener: OnItemClickListener) : RecyclerView.Adapter<Step4StrHiperRoutineAdapter.ExerciseViewHolder>() {
 
     inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val description: TextInputEditText = itemView.findViewById(R.id.descEt)
@@ -44,16 +44,8 @@ class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>) : R
         val routine = routine[position]
         holder.description.setText(routine.description)
         holder.button.setOnClickListener {
-            val context = holder.itemView.context
             val descriptionText = holder.description.text.toString()
-            if (descriptionText.isEmpty()) {
-                Toast.makeText(context, "Please enter a description", Toast.LENGTH_SHORT).show()
-            } else {
-                val intent = Intent(context, Step5StrHiperExercise::class.java).apply {
-                    putExtra("ROUTINE_DESCRIPTION", descriptionText)
-                }
-                context.startActivity(intent)
-            }
+            listener.onClick(descriptionText)
         }
     }
 
@@ -62,5 +54,9 @@ class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>) : R
     fun addRoutine(routine: Routine) {
         this.routine.add(routine)
         notifyItemInserted(this.routine.size - 1)
+    }
+
+    interface OnItemClickListener {
+        fun onClick(descriptionText: String)
     }
 }

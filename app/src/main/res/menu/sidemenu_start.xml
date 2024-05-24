@@ -6,13 +6,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:background="@color/nav_item_color"
+            android:background="@color/black"
             android:enabled="true"
-            android:title="@string/first_steps"/>
+            android:title="@string/first_steps" />
         <item
             android:id="@+id/nav_options"
-            android:background="@color/nav_item_color"
+            android:background="@color/magenta"
             android:enabled="true"
-            android:title="Options"/>
+            android:title="Options" />
     </group>
 </menu>

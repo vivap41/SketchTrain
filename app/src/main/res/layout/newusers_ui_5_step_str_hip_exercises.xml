@@ -21,9 +21,9 @@
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginTop="60dp"
         android:layout_marginEnd="-1dp"
         android:background="#8AD8D8D8"
+        app:layout_constraintBottom_toTopOf="@+id/tvTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
@@ -36,14 +36,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/separator" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="410dp"
-        android:layout_marginTop="230dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="230dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -63,16 +64,18 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnAdd"
-            android:layout_width="374dp"
-            android:layout_height="34dp"
-            android:background="@drawable/button_background2"
+            android:layout_width="179dp"
+            android:layout_height="31dp"
+            android:background="@drawable/button_background3"
             android:text="Add Exercise"
             android:textDirection="locale"
             android:textSize="16sp"
             app:cornerRadius="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/rvExerciseStr"
             app:layout_constraintTop_toBottomOf="@+id/rvExerciseStr"
+            app:layout_constraintVertical_bias="0.0"
             app:strokeWidth="2dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
