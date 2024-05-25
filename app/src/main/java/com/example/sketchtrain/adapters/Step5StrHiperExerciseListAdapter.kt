@@ -11,7 +11,9 @@ import com.example.sketchtrain.dataclasses.Exercise
 private val TYPE_ITEM = 1
 private val TYPE_FOOTER = 2
 
-class Step5StrHiperExerciseListAdapter(private var exercises: List<Exercise>, private val onExerciseClick: (Exercise) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class Step5StrHiperExerciseListAdapter(private var exercises: MutableList<Exercise>,
+                                       private val onExerciseClick: (Exercise) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val exerciseName: TextView = itemView.findViewById(R.id.exerciseName)
@@ -45,15 +47,12 @@ class Step5StrHiperExerciseListAdapter(private var exercises: List<Exercise>, pr
             val exercise = exercises[position]
             holder.exerciseName.text = exercise.name
         } else if (holder is FooterViewHolder) {
-            // Configura el footer si es necesario
         }
     }
 
-    override fun getItemCount(): Int {
-        return exercises.size + 1 // +1 para el footer
-    }
+    override fun getItemCount() = exercises.size + 1
 
-    fun updateList(newExercises: List<Exercise>) {
+    fun updateList(newExercises: MutableList<Exercise>) {
         exercises = newExercises
         notifyDataSetChanged()
     }

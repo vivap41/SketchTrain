@@ -1,14 +1,16 @@
 package com.example.sketchtrain.dataclasses
 
+import java.io.Serializable
+
 data class Exercise(
-    val idExercise: String = "",
-    val name: String = "",
-    val seriesNumber: Number = 0,
-    val seriesType: String = "",
-    val repetitionsNumber: Number = 0,
-    val weight: Number = 0,
-    val maxRepetitions: Number = 0,
-    val duration: Number = 0,
-    val ispower:Boolean = false,
-    val isAccesory:Boolean = false,
-    )
+    var idExercise: String = "",
+    var name: String = "",
+    var seriesNumber: Number = 0,
+    var seriesType: String = "",
+    var repetitionsNumber: Number = 0,
+    var weight: Number = 0,
+    var maxRepetitions: Number = 0,
+    var duration: Number = 0,
+    var ispower:Boolean = false,
+    var isAccesory:Boolean = false
+): Serializable

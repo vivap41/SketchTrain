@@ -1,3 +1,11 @@
 package com.example.sketchtrain.dataclasses
 
-data class Training(val idTraining: String, val description: String = "", val type: String = "", val date: String = "")
+import java.io.Serializable
+
+data class Training(
+    val idTraining: String= "",
+    val description: String = "",
+    val type: String = "",
+    val date: String = "",
+    var mutableList: MutableList <Routine> = mutableListOf()
+): Serializable

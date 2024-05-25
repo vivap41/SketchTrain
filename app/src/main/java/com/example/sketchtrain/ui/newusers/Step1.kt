@@ -21,6 +21,7 @@ class Step1 : Fragment() {
         val buttonStr = binding.btnStrength
         buttonStr.setOnClickListener {
         val intent = Intent(requireContext(), Step2Str::class.java)
+
             startActivity(intent)
         }
 
@@ -34,10 +35,6 @@ class Step1 : Fragment() {
 
             dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
                 dialog.dismiss()
-                // Launch ``Step2Str`` activity
-                dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
-                    dialog.dismiss()
-                }
             }
         }
 
@@ -55,7 +52,6 @@ class Step1 : Fragment() {
         }
 
         binding.infoHIIT.setOnClickListener {
-            // Create and show the dialog.
             val dialogView = layoutInflater.inflate(R.layout.newusers_ui_dialog_popup_hiit, null)
             val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)

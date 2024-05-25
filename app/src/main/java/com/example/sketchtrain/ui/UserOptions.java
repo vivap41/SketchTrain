@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.newusers;
+package com.example.sketchtrain.ui;
 
 import androidx.fragment.app.Fragment;
 

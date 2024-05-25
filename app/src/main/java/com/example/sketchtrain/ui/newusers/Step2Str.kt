@@ -16,6 +16,8 @@ class Step2Str : AppCompatActivity() {
 
         binding.btnEx.setOnClickListener {
             val intent = Intent(this, Step3Hiper::class.java)
+            // Agregar el tipo de entrenamiento como un extra en el Intent
+            intent.putExtra("training_type", "hypertrophy")
             startActivity(intent)
         }
     }

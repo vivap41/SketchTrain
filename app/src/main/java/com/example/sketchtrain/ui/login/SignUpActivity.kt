@@ -1,4 +1,4 @@
-package com.example.sketchtrain.login
+package com.example.sketchtrain.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

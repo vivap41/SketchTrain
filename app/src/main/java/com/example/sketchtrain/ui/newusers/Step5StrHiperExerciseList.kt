@@ -1,5 +1,6 @@
 package com.example.sketchtrain.ui.newusers
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -28,14 +29,14 @@ class Step5StrHiperExerciseList : AppCompatActivity() {
         exerciseRecyclerView = findViewById(R.id.exerciseRecyclerView)
 
         exerciseAdapter = Step5StrHiperExerciseListAdapter(exerciseList) { exercise ->
-            val intent = Intent(this, Step5StrHiperExercise::class.java)
-            intent.putExtra("EXERCISE_NAME", exercise.name)
-            startActivity(intent)
+            val returnIntent = Intent()
+            returnIntent.putExtra("EXERCISE_NAME", exercise.name)
+            setResult(Activity.RESULT_OK, returnIntent)
+            finish()
         }
         exerciseRecyclerView.layoutManager = LinearLayoutManager(this)
         exerciseRecyclerView.adapter = exerciseAdapter
 
-        // Set up search functionality
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -47,17 +48,15 @@ class Step5StrHiperExerciseList : AppCompatActivity() {
             }
         })
 
-        // Load initial exercise list
         loadExercises()
     }
 
     private fun filterExercises(query: String) {
         val filteredList = exerciseList.filter { it.name.contains(query, ignoreCase = true) }
-        exerciseAdapter.updateList(filteredList)
+        exerciseAdapter.updateList(filteredList.toMutableList())
     }
 
     private fun addNewExercise() {
-        // Logic to add a new exercise
         val newExercise = Exercise("New Exercise")
         exerciseList.add(newExercise)
         exerciseAdapter.notifyItemInserted(exerciseList.size - 1)
@@ -106,5 +105,4 @@ class Step5StrHiperExerciseList : AppCompatActivity() {
         exerciseList.add(Exercise(idExercise = "40", name = "Face Pull"))
         exerciseAdapter.notifyDataSetChanged()
     }
-
 }
