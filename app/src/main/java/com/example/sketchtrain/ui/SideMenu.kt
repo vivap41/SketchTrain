@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.creation
+package com.example.sketchtrain.ui
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -9,15 +9,15 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sketchtrain.R
-import com.example.sketchtrain.databinding.NewusersSidemenuNavViewBinding
+import com.example.sketchtrain.databinding.SidemenuNavViewBinding
 
-class Step1SideMenu  : AppCompatActivity() {
+class SideMenu  : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: NewusersSidemenuNavViewBinding
+    private lateinit var binding: SidemenuNavViewBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = NewusersSidemenuNavViewBinding.inflate(layoutInflater)
+        binding = SidemenuNavViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
@@ -26,7 +26,7 @@ class Step1SideMenu  : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_start
+            R.id.nav_home, R.id.nav_options
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

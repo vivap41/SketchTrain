@@ -3,15 +3,17 @@ package com.example.sketchtrain.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sketchtrain.ui.creation.Step1SideMenu
 import com.example.sketchtrain.databinding.ActivitySignInBinding
+import com.example.sketchtrain.ui.SideMenu
 import com.google.firebase.auth.FirebaseAuth
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private var lastPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,7 @@ class SignInActivity : AppCompatActivity() {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val intent = Intent(this, Step1SideMenu::class.java)
+                        val intent = Intent(this, SideMenu::class.java)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
@@ -43,13 +45,24 @@ class SignInActivity : AppCompatActivity() {
 
             }
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis() - lastPressedTime < 2000) {
+                    finishAffinity()
+                } else {
+//                    Toast.makeText(applicationContext, "Press back again to exit", Toast.LENGTH_SHORT).show()
+                    lastPressedTime = System.currentTimeMillis()
+                }
+            }
+        })
     }
 
     override fun onStart() {
         super.onStart()
 
         if (firebaseAuth.currentUser != null) {
-            val intent = Intent(this, Step1SideMenu::class.java)
+            val intent = Intent(this, SideMenu::class.java)
             startActivity(intent)
         }
     }

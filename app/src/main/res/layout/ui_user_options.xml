@@ -8,18 +8,20 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/deleteAccount"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:background="@drawable/button_background_black"
         android:text="Delete Account"
         android:textColor="#736868"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logOut"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:background="@drawable/button_background_black"
@@ -28,16 +30,20 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteAccount" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deleteAccount"
+        app:layout_constraintVertical_bias="0.409" />
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="407dp"
-        android:layout_height="540dp"
-        app:layout_constraintBottom_toTopOf="@+id/deleteAccount"
+        android:layout_width="374dp"
+        android:layout_height="399dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.075"
         app:srcCompat="@drawable/app_icon_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.creation.Step1SideMenu">
+    tools:context=".ui.SideMenu">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
-        layout="@layout/newusers_sidemenu_content"
+        layout="@layout/sidemenu_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

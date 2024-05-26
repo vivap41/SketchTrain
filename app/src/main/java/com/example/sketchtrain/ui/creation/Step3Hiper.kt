@@ -35,24 +35,7 @@ class Step3Hiper : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-//        resultLauncher = registerForActivityResult(
-//            ActivityResultContracts.StartActivityForResult()
-//
-//        )
-//        { result ->}
-//            if (result.resultCode == Activity.RESULT_OK) {
-//                var routines = result.data?.getSerializableExtra("ROUTINE_LIST") as ArrayList<Routine>
-//                var mutList = mutableListOf<Routine>()
-//                mutList.addAll(routines)
-//                Training(
-//                    idTraining = UUID.randomUUID().toString(),
-//                    description = trainDescription,
-//                    type = trainingType,
-//                    date = LocalDate.now().toString(),
-//                    mutableList = routines
-//                )
-//            }
-//        }
+
 
     }
 

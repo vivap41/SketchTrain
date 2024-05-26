@@ -9,11 +9,11 @@
         android:id="@id/nav_home"
         android:name="com.example.sketchtrain.ui.creation.Step1"
         android:label=""
-        tools:layout="@layout/newusers_ui_1_step" />
+        tools:layout="@layout/ui_creation_1_step" />
     <fragment
         android:id="@id/nav_options"
         android:name="com.example.sketchtrain.ui.UserOptions"
         android:label=""
-        tools:layout="@layout/newusers_user_options" />
+        tools:layout="@layout/ui_user_options" />
 
 </navigation>

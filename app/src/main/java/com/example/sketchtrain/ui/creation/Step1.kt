@@ -3,10 +3,10 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.example.sketchtrain.R
-import com.example.sketchtrain.databinding.NewusersUi1StepBinding
+import com.example.sketchtrain.databinding.UiCreation1StepBinding
 
 class Step1 : Fragment() {
-    private var _binding: NewusersUi1StepBinding? = null
+    private var _binding: UiCreation1StepBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -14,7 +14,7 @@ class Step1 : Fragment() {
         container: android.view.ViewGroup?,
         savedInstanceState: android.os.Bundle?
     ): android.view.View {
-        _binding = NewusersUi1StepBinding.inflate(inflater, container, false)
+        _binding = UiCreation1StepBinding.inflate(inflater, container, false)
         val root: android.view.View = binding.root
 
         // Listeners --> Buttons
