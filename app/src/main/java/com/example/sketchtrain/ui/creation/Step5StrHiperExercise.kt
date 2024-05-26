@@ -1,6 +1,5 @@
-package com.example.sketchtrain.ui.newusers
+package com.example.sketchtrain.ui.creation
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -16,19 +15,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.adapters.Step5StrHiperExerciseAdapter
 import com.example.sketchtrain.dataclasses.Exercise
-import com.example.sketchtrain.dataclasses.Routine
-import java.util.UUID
 
 class Step5StrHiperExercise : AppCompatActivity() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private lateinit var exerciseAdapter: Step5StrHiperExerciseAdapter
     private lateinit var btnFinish: ImageView
     private var exercises: MutableList<Exercise> = mutableListOf()
-private var exerciseName: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.newusers_ui_5_step_str_hip_exercises)
 
+
+        val description = intent.getStringExtra("ROUTINE_DESCRIPTION")
+        exercises = intent.getSerializableExtra("EXERCISES_LIST") as ArrayList<Exercise>
+        val tvRout: TextView = findViewById(R.id.tvTitle)
+        tvRout.text = "$description Routine"
 
         val recyclerView: RecyclerView = findViewById(R.id.rvExerciseStr)
         exerciseAdapter = Step5StrHiperExerciseAdapter(exercises, this::showOptionsDialog)
@@ -41,31 +42,25 @@ private var exerciseName: String? = null
             resultLauncher.launch(intent)
         }
 
-        btnFinish = findViewById(R.id.btFinish)
-        btnFinish.setOnClickListener {
-            Exercise(
-                idExercise = UUID.randomUUID().toString(),
-                name = exerciseName?:""
-            )
-            val validRoutines = exercises.filter { it.name.isNotBlank() }
-            val data = Intent().apply {
-                putExtra("EXERCISES_LIST", ArrayList(exercises))
-            }
-            setResult(RESULT_OK, data)
-            finish()
-        }
+
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                exerciseName = result.data?.getStringExtra("EXERCISE_NAME")
+                val exerciseName = result.data?.getStringExtra("EXERCISE_NAME").toString()
                 updateExerciseList(exerciseName)
             }
         }
 
-        val description = intent.getStringExtra("ROUTINE_DESCRIPTION")
-        val tvRout: TextView = findViewById(R.id.tvTitle)
-        tvRout.text = "$description Routine"
+        btnFinish = findViewById(R.id.btFinish)
+        btnFinish.setOnClickListener {
+            val data = Intent().apply {
+                putExtra("EXERCISES_LIST", ArrayList(exercises))
+                putExtra("ROUTINE_DESCRIPTION", description)
+            }
+            setResult(RESULT_OK, data)
+            finish()
+        }
     }
 
     private fun showOptionsDialog(position: Int) {

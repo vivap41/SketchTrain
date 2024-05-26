@@ -1,21 +1,17 @@
 package com.example.sketchtrain.adapters
 
-import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Routine
-import com.example.sketchtrain.ui.newusers.Step5StrHiperExercise
 import com.google.android.material.textfield.TextInputEditText
 
-class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>, private val listener: OnItemClickListener) : RecyclerView.Adapter<Step4StrHiperRoutineAdapter.ExerciseViewHolder>() {
-
+class Step4StrHiperRoutineAdapter(val routine: MutableList<Routine>, private val listener: OnItemClickListener) : RecyclerView.Adapter<Step4StrHiperRoutineAdapter.ExerciseViewHolder>() {
     inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val description: TextInputEditText = itemView.findViewById(R.id.descEt)
         val button: AppCompatButton = itemView.findViewById(R.id.btnEx)
@@ -45,7 +41,7 @@ class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>, pri
         holder.description.setText(routine.description)
         holder.button.setOnClickListener {
             val descriptionText = holder.description.text.toString()
-            listener.onClick(descriptionText)
+            listener.onClick(descriptionText,position)
         }
     }
 
@@ -57,6 +53,7 @@ class Step4StrHiperRoutineAdapter(private val routine: MutableList<Routine>, pri
     }
 
     interface OnItemClickListener {
-        fun onClick(descriptionText: String)
+        fun onClick(descriptionText: String, position: Int)
     }
+
 }

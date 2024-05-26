@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.newusers
+package com.example.sketchtrain.ui.creation
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -26,7 +26,7 @@ class Step1SideMenu  : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home
+            R.id.nav_start
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

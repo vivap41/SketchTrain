@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.newusers
+package com.example.sketchtrain.ui.creation
 import android.app.AlertDialog
 import android.content.Intent
 import androidx.fragment.app.Fragment
@@ -39,7 +39,6 @@ class Step1 : Fragment() {
         }
 
         binding.infoEndurance.setOnClickListener {
-            // Create and show the dialog.
             val dialogView = layoutInflater.inflate(R.layout.newusers_ui_dialog_popup_endurance, null)
             val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)

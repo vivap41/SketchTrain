@@ -1,4 +1,4 @@
-package com.example.sketchtrain.ui.newusers
+package com.example.sketchtrain.ui.creation
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,10 +14,9 @@ class Step2Str : AppCompatActivity() {
         binding = NewusersUi2StepStrBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnEx.setOnClickListener {
+        binding.btnHiper.setOnClickListener {
             val intent = Intent(this, Step3Hiper::class.java)
-            // Agregar el tipo de entrenamiento como un extra en el Intent
-            intent.putExtra("training_type", "hypertrophy")
+            intent.putExtra("TRAINING_TYPE", "hypertrophy")
             startActivity(intent)
         }
     }

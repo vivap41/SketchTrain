@@ -28,26 +28,26 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.newusers.Step1SideMenu"
+            android:name=".ui.creation.Step1SideMenu"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.newusers.Step2Str"
+            android:name=".ui.creation.Step2Str"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.newusers.Step3Hiper"
+            android:name=".ui.creation.Step3Hiper"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.newusers.Step4StrHiperRoutine"
+            android:name=".ui.creation.Step4StrHiperRoutine"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
         </activity>
-        <activity android:name=".ui.newusers.Step5StrHiperExercise"
+        <activity android:name=".ui.creation.Step5StrHiperExercise"
             android:exported="true">
         </activity>
-        <activity android:name=".ui.newusers.Step5StrHiperExerciseList"
+        <activity android:name=".ui.creation.Step5StrHiperExerciseList"
             android:exported="true">
         </activity>
     </application>

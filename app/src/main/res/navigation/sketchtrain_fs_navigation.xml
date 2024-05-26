@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@id/nav_home"
-        android:name="com.example.sketchtrain.ui.newusers.Step1"
+        android:name="com.example.sketchtrain.ui.creation.Step1"
         android:label=""
         tools:layout="@layout/newusers_ui_1_step" />
     <fragment

@@ -6,39 +6,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="305dp"
         android:layout_height="50dp"
-        android:layout_marginTop="52dp"
+        app:layout_constraintBottom_toTopOf="@+id/separator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/name" />
 
-
     <View
         android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginEnd="-1dp"
         android:background="#8AD8D8D8"
-        app:layout_constraintBottom_toTopOf="@+id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.427" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/routine"
+        android:gravity="center"
+        android:text="Routine name"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/separator"
+        app:layout_constraintVertical_bias="0.188" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -50,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649">
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvExerciseStr"
@@ -58,38 +60,34 @@
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnAdd"
-            android:layout_width="179dp"
-            android:layout_height="31dp"
-            android:background="@drawable/button_background3"
-            android:text="Add Exercise"
-            android:textDirection="locale"
-            android:textSize="16sp"
-            app:cornerRadius="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/rvExerciseStr"
-            app:layout_constraintTop_toBottomOf="@+id/rvExerciseStr"
-            app:layout_constraintVertical_bias="0.0"
-            app:strokeWidth="2dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/btFinish"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="116dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toTopOf="@+id/separator"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:srcCompat="@drawable/ok_button" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAdd"
+        android:layout_width="179dp"
+        android:layout_height="31dp"
+        android:background="@drawable/button_background_grey"
+        android:text="Add Exercise"
+        android:textDirection="locale"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:strokeWidth="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
