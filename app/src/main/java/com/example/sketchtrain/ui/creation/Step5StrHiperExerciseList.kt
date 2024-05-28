@@ -1,6 +1,7 @@
 package com.example.sketchtrain.ui.creation
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.adapters.Step5StrHiperExerciseListAdapter
 import com.example.sketchtrain.dataclasses.Exercise
+import java.util.UUID
 
 class Step5StrHiperExerciseList : AppCompatActivity() {
 
@@ -22,17 +24,20 @@ class Step5StrHiperExerciseList : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.newusers_ui_5_step_str_hip_exercises_list)
+        setContentView(R.layout.ui_crea_5_step_str_hip_exercises_list)
 
         searchEditText = findViewById(R.id.searchEditText)
         exerciseRecyclerView = findViewById(R.id.exerciseRecyclerView)
 
-        exerciseAdapter = Step5StrHiperExerciseListAdapter(exerciseList) { exercise ->
+        exerciseAdapter = Step5StrHiperExerciseListAdapter(exerciseList, { exercise ->
             val returnIntent = Intent()
             returnIntent.putExtra("EXERCISE_NAME", exercise.name)
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
-        }
+        }, {
+            showAddExerciseDialog()
+        })
+
         exerciseRecyclerView.layoutManager = LinearLayoutManager(this)
         exerciseRecyclerView.adapter = exerciseAdapter
 
@@ -55,8 +60,28 @@ class Step5StrHiperExerciseList : AppCompatActivity() {
         exerciseAdapter.updateList(filteredList.toMutableList())
     }
 
-    private fun addNewExercise() {
-        val newExercise = Exercise("New Exercise")
+    private fun showAddExerciseDialog() {
+        val builder = AlertDialog.Builder(this)
+        val input = EditText(this)
+        builder.setTitle("New Exercise")
+        builder.setView(input)
+
+        builder.setPositiveButton("OK") { dialog, _ ->
+            val exerciseName = input.text.toString()
+            if (exerciseName.isNotBlank()) {
+                addNewExercise(exerciseName)
+            }
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.cancel()
+        }
+
+        builder.show()
+    }
+
+    private fun addNewExercise(exerciseName: String) {
+        val newExercise = Exercise(idExercise = UUID.randomUUID().toString(), name = exerciseName)
         exerciseList.add(newExercise)
         exerciseAdapter.notifyItemInserted(exerciseList.size - 1)
     }

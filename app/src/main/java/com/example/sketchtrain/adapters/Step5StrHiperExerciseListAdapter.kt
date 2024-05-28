@@ -11,12 +11,15 @@ import com.example.sketchtrain.dataclasses.Exercise
 private val TYPE_ITEM = 1
 private val TYPE_FOOTER = 2
 
-class Step5StrHiperExerciseListAdapter(private var exercises: MutableList<Exercise>,
-                                       private val onExerciseClick: (Exercise) -> Unit
+class Step5StrHiperExerciseListAdapter(
+    private var exercises: MutableList<Exercise>,
+    private val onExerciseClick: (Exercise) -> Unit,
+    private val onAddExerciseClick: () -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val exerciseName: TextView = itemView.findViewById(R.id.exerciseName)
+
         init {
             itemView.setOnClickListener {
                 onExerciseClick(exercises[adapterPosition])
@@ -26,6 +29,12 @@ class Step5StrHiperExerciseListAdapter(private var exercises: MutableList<Exerci
 
     inner class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val newExercise: TextView = itemView.findViewById(R.id.newExercise)
+
+        init {
+            newExercise.setOnClickListener {
+                onAddExerciseClick()
+            }
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -34,10 +43,12 @@ class Step5StrHiperExerciseListAdapter(private var exercises: MutableList<Exerci
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_ITEM) {
-            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.newusers_ui_5_step_str_hip_exercises_list_item, parent, false)
+            val itemView = LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycleri_crea_5_step_str_hip_exercises_list, parent, false)
             ExerciseViewHolder(itemView)
         } else {
-            val footerView = LayoutInflater.from(parent.context).inflate(R.layout.newusers_ui_5_step_str_hip_exercises_list_footer, parent, false) // Reemplaza "footer_layout" con el layout de tu footer
+            val footerView = LayoutInflater.from(parent.context)
+                .inflate(R.layout.recyclerf_crea_5_step_str_hip_exercises_list, parent, false)
             FooterViewHolder(footerView)
         }
     }

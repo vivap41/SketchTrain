@@ -23,7 +23,7 @@ class Step5StrHiperExercise : AppCompatActivity() {
     private var exercises: MutableList<Exercise> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.newusers_ui_5_step_str_hip_exercises)
+        setContentView(R.layout.ui_crea_5_step_str_hip_exercises)
 
 
         val description = intent.getStringExtra("ROUTINE_DESCRIPTION")

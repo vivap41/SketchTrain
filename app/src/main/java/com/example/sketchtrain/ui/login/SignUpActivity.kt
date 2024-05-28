@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.example.sketchtrain.databinding.ActivitySignUpBinding
+import com.example.sketchtrain.ui.SideMenu
 import com.google.firebase.auth.FirebaseAuth
 
 class SignUpActivity : AppCompatActivity() {
@@ -23,6 +24,8 @@ class SignUpActivity : AppCompatActivity() {
         binding.textView.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
+            finish()
+
         }
         binding.btnSignUp.setOnClickListener {
             val email = binding.emailEt.text.toString()
@@ -34,8 +37,9 @@ class SignUpActivity : AppCompatActivity() {
 
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
-                            val intent = Intent(this, SignInActivity::class.java)
+                            val intent = Intent(this, SideMenu::class.java)
                             startActivity(intent)
+                            finish()
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                         }

@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sketchtrain.databinding.ActivitySignInBinding
-import com.example.sketchtrain.ui.SideMenu
+import com.example.sketchtrain.ui.Aaaaa
 import com.google.firebase.auth.FirebaseAuth
 
 class SignInActivity : AppCompatActivity() {
@@ -33,8 +33,9 @@ class SignInActivity : AppCompatActivity() {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val intent = Intent(this, SideMenu::class.java)
+                        val intent = Intent(this, Aaaaa::class.java)
                         startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
 
@@ -62,7 +63,7 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
 
         if (firebaseAuth.currentUser != null) {
-            val intent = Intent(this, SideMenu::class.java)
+            val intent = Intent(this, Aaaaa::class.java)
             startActivity(intent)
         }
     }

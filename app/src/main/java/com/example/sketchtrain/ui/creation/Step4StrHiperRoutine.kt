@@ -17,9 +17,7 @@ import com.example.sketchtrain.R
 import com.example.sketchtrain.adapters.Step4StrHiperRoutineAdapter
 import com.example.sketchtrain.dataclasses.Exercise
 import com.example.sketchtrain.dataclasses.Routine
-import com.example.sketchtrain.dataclasses.Training
-import java.time.LocalDate
-import java.util.UUID
+import com.example.sketchtrain.ui.Aaaaa
 
 class Step4StrHiperRoutine : AppCompatActivity(), Step4StrHiperRoutineAdapter.OnItemClickListener {
 
@@ -34,7 +32,7 @@ class Step4StrHiperRoutine : AppCompatActivity(), Step4StrHiperRoutineAdapter.On
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.newusers_ui_4_step_str_hip)
+        setContentView(R.layout.ui_crea_4_step_str_hip)
 
         rvExStr = findViewById(R.id.rvRoutineStr)
         val routines = mutableListOf(Routine())
@@ -64,30 +62,27 @@ class Step4StrHiperRoutine : AppCompatActivity(), Step4StrHiperRoutineAdapter.On
             if (result.resultCode == Activity.RESULT_OK && editingRoutineIndex != -1) {
                 val exercises = result.data?.getSerializableExtra("EXERCISES_LIST") as? MutableList<Exercise> ?: arrayListOf()
                 val desc = result.data?.getStringExtra("ROUTINE_DESCRIPTION") ?: ""
-                val routineToUpdate = Step4StrHiperRoutineAdapter.routine[editingRoutineIndex]
+                val routineToUpdate = Step4StrHiperRoutineAdapter.routineList[editingRoutineIndex]
                 routineToUpdate.description = desc
-                routineToUpdate.mutableList.clear()
-                routineToUpdate.mutableList.addAll(exercises)
+                routineToUpdate.exerciseList.clear()
+                routineToUpdate.exerciseList.addAll(exercises)
                 Step4StrHiperRoutineAdapter.notifyItemChanged(editingRoutineIndex)
             }
         }
 
         btnFinish = findViewById(R.id.btFinish)
         btnFinish.setOnClickListener {
-            trainDescription?.let { it1 ->
-                Training(
-                    idTraining = UUID.randomUUID().toString(),
-                    description = it1,
-                    type = trainingType,
-                    date = LocalDate.now().toString(),
-                    mutableList = routines
-                )
-            }
             val validRoutines = routines.filter { it.description.isNotBlank() }
-            val data = Intent().apply {
-                putExtra("ROUTINE_LIST", ArrayList(validRoutines)) // Pasa solo rutinas válidas
+
+            val homeIntent = Intent(this, Aaaaa::class.java).apply {
+                putExtra("ROUTINE_LIST", ArrayList(validRoutines))
+                putExtra("TRAINING_TYPE", trainingType)
+                putExtra("TRAIN_DESCRIPTION", trainDescription)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
             }
-            setResult(RESULT_OK, data)
+            startActivity(homeIntent)
+
             finish()
         }
 
@@ -124,10 +119,10 @@ class Step4StrHiperRoutine : AppCompatActivity(), Step4StrHiperRoutineAdapter.On
     override fun onClick(descriptionText: String, position: Int) {
         val intent = Intent(this, Step5StrHiperExercise::class.java).apply {
             putExtra("ROUTINE_DESCRIPTION", descriptionText)
-            putExtra("EDITING_POSITION", position)  // Paso la posición para saber qué rutina actualizar
-            putExtra("EXERCISES_LIST", Step4StrHiperRoutineAdapter.routine[position].mutableList as ArrayList<Exercise>)
+            putExtra("EDITING_POSITION", position)
+            putExtra("EXERCISES_LIST", Step4StrHiperRoutineAdapter.routineList[position].exerciseList as ArrayList<Exercise>)
         }
-        editingRoutineIndex = position  // Guarda la posición globalmente o en una variable adecuada
+        editingRoutineIndex = position
 
         resultLauncher.launch(intent)
     }

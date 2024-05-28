@@ -7,8 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Exercise
-import com.example.sketchtrain.dataclasses.Routine
-import com.google.android.material.textfield.TextInputEditText
 
 class Step5StrHiperExerciseAdapter(
     private val exercises: MutableList<Exercise>,
@@ -26,7 +24,7 @@ class Step5StrHiperExerciseAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.newusers_ui_5_step_str_hip_exercises_recycler, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_crea_5_step_str_hip_exercises, parent, false)
         return ExerciseViewHolder(itemView)
     }
 

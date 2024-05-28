@@ -1,14 +1,18 @@
 package com.example.sketchtrain.ui.creation
 import android.app.AlertDialog
 import android.content.Intent
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.sketchtrain.R
 import com.example.sketchtrain.databinding.UiCreation1StepBinding
+import com.example.sketchtrain.ui.SideMenu
 
 class Step1 : Fragment() {
     private var _binding: UiCreation1StepBinding? = null
     private val binding get() = _binding!!
 
+    private var backPressedTime: Long = 0
     override fun onCreateView(
         inflater: android.view.LayoutInflater,
         container: android.view.ViewGroup?,
@@ -27,7 +31,7 @@ class Step1 : Fragment() {
 
         // Listeners --> Dialog
         binding.infoStrength.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.newusers_ui_dialog_popup_strength, null)
+            val dialogView = layoutInflater.inflate(R.layout.hint_strength, null)
             val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .create()
@@ -39,7 +43,7 @@ class Step1 : Fragment() {
         }
 
         binding.infoEndurance.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.newusers_ui_dialog_popup_endurance, null)
+            val dialogView = layoutInflater.inflate(R.layout.hint_endurance, null)
             val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .create()
@@ -51,7 +55,7 @@ class Step1 : Fragment() {
         }
 
         binding.infoHIIT.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.newusers_ui_dialog_popup_hiit, null)
+            val dialogView = layoutInflater.inflate(R.layout.hint_hiit, null)
             val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .create()
@@ -61,10 +65,34 @@ class Step1 : Fragment() {
             }
         }
 
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                    showExitDialog()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Press back again to exit",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                backPressedTime = System.currentTimeMillis()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
         return root
     }
-
-    override fun onDestroyView() {
+    private fun showExitDialog() {
+        AlertDialog.Builder(requireContext())
+            .setMessage("Are you sure you want to skip tutorial?")
+            .setPositiveButton("Yes") { dialog, which ->
+                (requireActivity() as SideMenu).finish()
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
+        override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
