@@ -5,14 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.sketchtrain.R
-import com.example.sketchtrain.databinding.AaaaaaBinding
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.example.sketchtrain.databinding.ZzMainActivityBinding
 import com.example.sketchtrain.ui.login.SignInActivity
 import com.google.firebase.auth.FirebaseAuth
 
-class Aaaaa : AppCompatActivity() {
-    private lateinit var binding: AaaaaaBinding
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ZzMainActivityBinding
     lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var mAuth: FirebaseAuth? = null
 
@@ -24,13 +24,13 @@ class Aaaaa : AppCompatActivity() {
 
         if (currentUser == null) {
             val intent = Intent(
-                this@Aaaaa,
+                this@MainActivity,
                 SignInActivity::class.java
             )
             startActivity(intent)
             finish()
         }
-        binding = AaaaaaBinding.inflate(layoutInflater)
+        binding = ZzMainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

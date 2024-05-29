@@ -26,7 +26,7 @@ class SideMenu  : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home, R.id.nav_options
+            R.id.nav_start, R.id.nav_options
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

@@ -11,27 +11,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
-import com.example.sketchtrain.adapters.Step5StrHiperExerciseListAdapter
+import com.example.sketchtrain.adapters.ExerciseListAdapter
 import com.example.sketchtrain.dataclasses.Exercise
+import com.example.sketchtrain.objects.IntentExtras
 import java.util.UUID
 
-class Step5StrHiperExerciseList : AppCompatActivity() {
+class ExerciseList : AppCompatActivity() {
 
     private lateinit var searchEditText: EditText
     private lateinit var exerciseRecyclerView: RecyclerView
-    private lateinit var exerciseAdapter: Step5StrHiperExerciseListAdapter
+    private lateinit var exerciseAdapter: ExerciseListAdapter
     private var exerciseList: MutableList<Exercise> = mutableListOf()
+    private val intEx = IntentExtras
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.ui_crea_5_step_str_hip_exercises_list)
+        setContentView(R.layout.ui_exercise_list)
 
         searchEditText = findViewById(R.id.searchEditText)
         exerciseRecyclerView = findViewById(R.id.exerciseRecyclerView)
 
-        exerciseAdapter = Step5StrHiperExerciseListAdapter(exerciseList, { exercise ->
+        exerciseAdapter = ExerciseListAdapter(exerciseList, { exercise ->
             val returnIntent = Intent()
-            returnIntent.putExtra("EXERCISE_NAME", exercise.name)
+            returnIntent.putExtra(intEx.EXERCISE_NAME, exercise.name)
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
         }, {

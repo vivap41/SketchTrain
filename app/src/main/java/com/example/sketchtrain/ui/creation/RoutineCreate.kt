@@ -14,41 +14,42 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
-import com.example.sketchtrain.adapters.Step4StrHiperRoutineAdapter
+import com.example.sketchtrain.adapters.RoutineCreateAdapter
 import com.example.sketchtrain.dataclasses.Exercise
 import com.example.sketchtrain.dataclasses.Routine
-import com.example.sketchtrain.ui.Aaaaa
+import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.ui.MainActivity
 
-class Step4StrHiperRoutine : AppCompatActivity(), Step4StrHiperRoutineAdapter.OnItemClickListener {
+class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListener {
 
-    private lateinit var Step4StrHiperRoutineAdapter: Step4StrHiperRoutineAdapter
+    private lateinit var RoutineCreateAdapter: RoutineCreateAdapter
     private lateinit var rvExStr: RecyclerView
     private lateinit var btnFinish: ImageView
     private lateinit var tvTrain: TextView
     private var backPressedTime: Long = 0
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var editingRoutineIndex: Int = -1
-
+    private val intEx = IntentExtras
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.ui_crea_4_step_str_hip)
+        setContentView(R.layout.ui_routine_create)
 
         rvExStr = findViewById(R.id.rvRoutineStr)
         val routines = mutableListOf(Routine())
-        Step4StrHiperRoutineAdapter = Step4StrHiperRoutineAdapter(routines, this)
-        rvExStr.adapter = Step4StrHiperRoutineAdapter
+        RoutineCreateAdapter = RoutineCreateAdapter(routines, this)
+        rvExStr.adapter = RoutineCreateAdapter
         rvExStr.layoutManager = LinearLayoutManager(this)
         rvExStr.setHasFixedSize(true)
 
         tvTrain = findViewById(R.id.tvTrainName)
 
 
-        val trainDescription = intent.getStringExtra("TRAIN_DESCRIPTION")
+        val trainDescription = intent.getStringExtra(intEx.TRAINING_DESCRIPTION)
         trainDescription?.let {
             tvTrain.text = it
         }
-        val trainingType = intent.getStringExtra("TRAINING_TYPE") ?: "hypertrophy"
+        val trainingType = intent.getStringExtra(intEx.TRAINING_TYPE) ?: "hypertrophy"
 
 
         val descriptions = getRoutineDescriptions(routines)
@@ -60,24 +61,25 @@ class Step4StrHiperRoutine : AppCompatActivity(), Step4StrHiperRoutineAdapter.On
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK && editingRoutineIndex != -1) {
-                val exercises = result.data?.getSerializableExtra("EXERCISES_LIST") as? MutableList<Exercise> ?: arrayListOf()
-                val desc = result.data?.getStringExtra("ROUTINE_DESCRIPTION") ?: ""
-                val routineToUpdate = Step4StrHiperRoutineAdapter.routineList[editingRoutineIndex]
+                val exercises = result.data?.getSerializableExtra(intEx.EXERCISE_LIST) as? MutableList<Exercise> ?: arrayListOf()
+                val desc = result.data?.getStringExtra(intEx.ROUTINE_DESCRIPTION) ?: ""
+                val routineToUpdate = RoutineCreateAdapter.routineList[editingRoutineIndex]
                 routineToUpdate.description = desc
                 routineToUpdate.exerciseList.clear()
                 routineToUpdate.exerciseList.addAll(exercises)
-                Step4StrHiperRoutineAdapter.notifyItemChanged(editingRoutineIndex)
+                RoutineCreateAdapter.notifyItemChanged(editingRoutineIndex)
             }
         }
 
         btnFinish = findViewById(R.id.btFinish)
         btnFinish.setOnClickListener {
+            RoutineCreateAdapter.updateAllRoutines()
             val validRoutines = routines.filter { it.description.isNotBlank() }
 
-            val homeIntent = Intent(this, Aaaaa::class.java).apply {
-                putExtra("ROUTINE_LIST", ArrayList(validRoutines))
-                putExtra("TRAINING_TYPE", trainingType)
-                putExtra("TRAIN_DESCRIPTION", trainDescription)
+            val homeIntent = Intent(this, MainActivity::class.java).apply {
+                putExtra(intEx.ROUTINE_LIST, ArrayList(validRoutines))
+                putExtra(intEx.TRAINING_TYPE, trainingType)
+                putExtra(intEx.TRAINING_DESCRIPTION, trainDescription)
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
             }
@@ -92,7 +94,7 @@ class Step4StrHiperRoutine : AppCompatActivity(), Step4StrHiperRoutineAdapter.On
                     showExitDialog()
                 } else {
                     Toast.makeText(
-                        this@Step4StrHiperRoutine,
+                        this@RoutineCreate,
                         "Press back again to exit",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -117,10 +119,10 @@ class Step4StrHiperRoutine : AppCompatActivity(), Step4StrHiperRoutineAdapter.On
     }
 
     override fun onClick(descriptionText: String, position: Int) {
-        val intent = Intent(this, Step5StrHiperExercise::class.java).apply {
-            putExtra("ROUTINE_DESCRIPTION", descriptionText)
-            putExtra("EDITING_POSITION", position)
-            putExtra("EXERCISES_LIST", Step4StrHiperRoutineAdapter.routineList[position].exerciseList as ArrayList<Exercise>)
+        val intent = Intent(this, ExerciseAdd::class.java).apply {
+            putExtra(intEx.ROUTINE_DESCRIPTION, descriptionText)
+            putExtra(intEx.EDITING_POSITION, position)
+            putExtra(intEx.EXERCISE_LIST, RoutineCreateAdapter.routineList[position].exerciseList as ArrayList<Exercise>)
         }
         editingRoutineIndex = position
 

@@ -1,28 +1,28 @@
 package com.example.sketchtrain.adapters
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Training
-import com.example.sketchtrain.ui.Aaaaa
-import com.example.sketchtrain.ui.creation.Step3Hiper
-import com.example.sketchtrain.ui.record.RoutineAct
+import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.ui.MainActivity
+import com.example.sketchtrain.ui.creation.TrainingHiperName
 
 private const val TYPE_ITEM = 1
 private const val TYPE_FOOTER = 2
+private val intEx = IntentExtras
 
 class HomeActivityAdapter(
     private var trainingList: MutableList<Training>,
     private val listener: OnItemClickListener,
     private val onTrainingClick: (Training) -> Unit
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class TrainingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -73,9 +73,9 @@ class HomeActivityAdapter(
                     .setItems(types) { _, which ->
                         val selectedType = types[which]
                         val context = holder.itemView.context
-                        if (context is Aaaaa) {
-                            val intent = Intent(context, Step3Hiper::class.java)
-                            intent.putExtra("TRAINING_TYPE", selectedType)
+                        if (context is MainActivity) {
+                            val intent = Intent(context, TrainingHiperName::class.java)
+                            intent.putExtra(intEx.TRAINING_TYPE, selectedType)
                             context.resultLauncher.launch(intent)
                         }
                     }

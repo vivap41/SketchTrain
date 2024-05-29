@@ -11,7 +11,7 @@ import com.example.sketchtrain.dataclasses.Exercise
 private val TYPE_ITEM = 1
 private val TYPE_FOOTER = 2
 
-class Step5StrHiperExerciseListAdapter(
+class ExerciseListAdapter(
     private var exercises: MutableList<Exercise>,
     private val onExerciseClick: (Exercise) -> Unit,
     private val onAddExerciseClick: () -> Unit
@@ -44,11 +44,11 @@ class Step5StrHiperExerciseListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_ITEM) {
             val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.recycleri_crea_5_step_str_hip_exercises_list, parent, false)
+                .inflate(R.layout.rv_exercise_list_item, parent, false)
             ExerciseViewHolder(itemView)
         } else {
             val footerView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.recyclerf_crea_5_step_str_hip_exercises_list, parent, false)
+                .inflate(R.layout.rv_exercise_list_footer, parent, false)
             FooterViewHolder(footerView)
         }
     }

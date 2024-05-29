@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Routine
 
-class RoutineAdapter(
-    val routineList: MutableList<Routine>,
+class RoutineWorkoutAdapter(
+     val routineList: MutableList<Routine>,
     private val listener: OnItemClickListener
-) : RecyclerView.Adapter<RoutineAdapter.RoutineViewHolder>() {
+) : RecyclerView.Adapter<RoutineWorkoutAdapter.RoutineViewHolder>() {
 
     inner class RoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val description: TextView = itemView.findViewById(R.id.routDesc)
@@ -20,14 +20,13 @@ class RoutineAdapter(
 
         init {
             button.setOnClickListener {
-                val descriptionText = description.text.toString()
-                listener.onClick(descriptionText, adapterPosition)
+                listener.onClick(routineList[adapterPosition])
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoutineViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_record_4_step_str_hip, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_routine_workout_item, parent, false)
         return RoutineViewHolder(itemView)
     }
 
@@ -37,13 +36,13 @@ class RoutineAdapter(
     }
 
     override fun getItemCount() = routineList.size
-
-    fun addRoutine(routine: Routine) {
-        this.routineList.add(routine)
-        notifyItemInserted(this.routineList.size - 1)
-    }
+//
+//    fun addRoutine(routine: Routine) {
+//        this.routineList.add(routine)
+//        notifyItemInserted(this.routineList.size - 1)
+//    }
 
     interface OnItemClickListener {
-        fun onClick(descriptionText: String, position: Int)
+        fun onClick(routine: Routine)
     }
 }

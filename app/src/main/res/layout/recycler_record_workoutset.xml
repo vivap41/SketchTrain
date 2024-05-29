@@ -6,8 +6,22 @@
     android:layout_height="wrap_content"
     android:background="@color/none"
     android:gravity="center"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="378dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Set"
+        android:textSize="20sp" />
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/none"
+    android:gravity="center"
+    android:orientation="horizontal">
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/weightLayout"
         style="@style/LoginTextInputOuterFieldStyle"
@@ -52,5 +66,11 @@
             android:hint="Reps" />
     </com.google.android.material.textfield.TextInputLayout>
 
+</LinearLayout>
 
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 </LinearLayout>

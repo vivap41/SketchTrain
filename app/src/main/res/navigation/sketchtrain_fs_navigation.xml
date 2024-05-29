@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_start">
 
     <fragment
-        android:id="@id/nav_home"
-        android:name="com.example.sketchtrain.ui.creation.Step1"
+        android:id="@id/nav_start"
+        android:name="com.example.sketchtrain.ui.creation.TrainingChooseCat"
         android:label=""
-        tools:layout="@layout/ui_creation_1_step" />
+        tools:layout="@layout/ui_trainig_choose_cat" />
     <fragment
         android:id="@id/nav_options"
         android:name="com.example.sketchtrain.ui.UserOptions"

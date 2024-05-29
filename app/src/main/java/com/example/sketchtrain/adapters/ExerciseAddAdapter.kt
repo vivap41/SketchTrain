@@ -8,23 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Exercise
 
-class Step5StrHiperExerciseAdapter(
+class ExerciseAddAdapter(
     private val exercises: MutableList<Exercise>,
     private val onItemLongClick: (Int) -> Unit
-) : RecyclerView.Adapter<Step5StrHiperExerciseAdapter.ExerciseViewHolder>() {
+) : RecyclerView.Adapter<ExerciseAddAdapter.ExerciseViewHolder>() {
     inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val exerciseName: TextView = itemView.findViewById(R.id.tvExercise)
         init {
-            // Manejar clic largo
             itemView.setOnLongClickListener {
                 onItemLongClick(adapterPosition)
-                true // Indica que el evento ha sido manejado
+                true
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_crea_5_step_str_hip_exercises, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_exercise_add, parent, false)
         return ExerciseViewHolder(itemView)
     }
 

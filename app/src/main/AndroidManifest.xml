@@ -16,7 +16,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".ui.Aaaaa"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,25 +37,28 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.creation.Step2Str"
+            android:name=".ui.creation.TrainingChooseCat"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.creation.Step3Hiper"
+            android:name=".ui.creation.TrainingHiperName"
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.creation.Step4StrHiperRoutine"
+            android:name=".ui.creation.RoutineCreate"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
         </activity>
-        <activity android:name=".ui.creation.Step5StrHiperExercise"
+        <activity android:name=".ui.creation.ExerciseAdd"
             android:exported="true">
         </activity>
-        <activity android:name=".ui.creation.Step5StrHiperExerciseList"
+        <activity android:name=".ui.creation.ExerciseList"
             android:exported="true">
         </activity>
-        <activity android:name=".ui.record.RoutineAct"
+        <activity android:name=".ui.record.RoutineWorkout"
+            android:exported="true">
+        </activity>
+        <activity android:name=".ui.record.ExerciseWorkout"
             android:exported="true">
         </activity>
     </application>

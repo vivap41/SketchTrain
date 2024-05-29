@@ -13,32 +13,35 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
-import com.example.sketchtrain.adapters.Step5StrHiperExerciseAdapter
+import com.example.sketchtrain.adapters.ExerciseAddAdapter
 import com.example.sketchtrain.dataclasses.Exercise
+import com.example.sketchtrain.objects.IntentExtras
 
-class Step5StrHiperExercise : AppCompatActivity() {
+class ExerciseAdd : AppCompatActivity() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var exerciseAdapter: Step5StrHiperExerciseAdapter
+    private lateinit var exerciseAdapter: ExerciseAddAdapter
     private lateinit var btnFinish: ImageView
     private var exercises: MutableList<Exercise> = mutableListOf()
+    private val intEx = IntentExtras
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.ui_crea_5_step_str_hip_exercises)
+        setContentView(R.layout.ui_exercise_add)
 
 
-        val description = intent.getStringExtra("ROUTINE_DESCRIPTION")
-        exercises = intent.getSerializableExtra("EXERCISES_LIST") as ArrayList<Exercise>
+        val description = intent.getStringExtra(intEx.ROUTINE_DESCRIPTION)
+        exercises = intent.getSerializableExtra(intEx.EXERCISE_LIST) as ArrayList<Exercise>
         val tvRout: TextView = findViewById(R.id.tvTitle)
         tvRout.text = "$description Routine"
 
         val recyclerView: RecyclerView = findViewById(R.id.rvExerciseStr)
-        exerciseAdapter = Step5StrHiperExerciseAdapter(exercises, this::showOptionsDialog)
+        exerciseAdapter = ExerciseAddAdapter(exercises, this::showOptionsDialog)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = exerciseAdapter
 
         val addEx: AppCompatButton = findViewById(R.id.btnAdd)
         addEx.setOnClickListener {
-            val intent = Intent(this, Step5StrHiperExerciseList::class.java)
+            val intent = Intent(this, ExerciseList::class.java)
             resultLauncher.launch(intent)
         }
 
@@ -47,7 +50,7 @@ class Step5StrHiperExercise : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val exerciseName = result.data?.getStringExtra("EXERCISE_NAME").toString()
+                val exerciseName = result.data?.getStringExtra(intEx.EXERCISE_NAME).toString()
                 updateExerciseList(exerciseName)
             }
         }
@@ -55,8 +58,8 @@ class Step5StrHiperExercise : AppCompatActivity() {
         btnFinish = findViewById(R.id.btFinish)
         btnFinish.setOnClickListener {
             val data = Intent().apply {
-                putExtra("EXERCISES_LIST", ArrayList(exercises))
-                putExtra("ROUTINE_DESCRIPTION", description)
+                putExtra(intEx.EXERCISE_LIST, ArrayList(exercises))
+                putExtra(intEx.ROUTINE_DESCRIPTION, description)
             }
             setResult(RESULT_OK, data)
             finish()
@@ -82,7 +85,7 @@ class Step5StrHiperExercise : AppCompatActivity() {
 
     private fun replaceExercise(position: Int) {
         deleteExercise(position)
-        val intent = Intent(this, Step5StrHiperExerciseList::class.java)
+        val intent = Intent(this, ExerciseList::class.java)
         resultLauncher.launch(intent)
     }
 

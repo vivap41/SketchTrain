@@ -5,33 +5,32 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.sketchtrain.R
-import com.example.sketchtrain.databinding.UiCreation1StepBinding
+import com.example.sketchtrain.databinding.UiTrainigChooseCatBinding
+import com.example.sketchtrain.objects.IntentExtras
 import com.example.sketchtrain.ui.SideMenu
 
-class Step1 : Fragment() {
-    private var _binding: UiCreation1StepBinding? = null
+class TrainingChooseCat : Fragment() {
+    private var _binding: UiTrainigChooseCatBinding? = null
     private val binding get() = _binding!!
-
+    private val intEx = IntentExtras
     private var backPressedTime: Long = 0
     override fun onCreateView(
         inflater: android.view.LayoutInflater,
         container: android.view.ViewGroup?,
         savedInstanceState: android.os.Bundle?
     ): android.view.View {
-        _binding = UiCreation1StepBinding.inflate(inflater, container, false)
+        _binding = UiTrainigChooseCatBinding.inflate(inflater, container, false)
         val root: android.view.View = binding.root
 
         // Listeners --> Buttons
-        val buttonStr = binding.btnStrength
-        buttonStr.setOnClickListener {
-        val intent = Intent(requireContext(), Step2Str::class.java)
-
+        binding.btnHiper.setOnClickListener {
+            val intent = Intent(requireContext(), TrainingHiperName::class.java)
+            intent.putExtra(intEx.TRAINING_TYPE, "hypertrophy")
             startActivity(intent)
         }
-
         // Listeners --> Dialog
-        binding.infoStrength.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.hint_strength, null)
+        binding.infoPower.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.zz_hint_strength_power, null)
             val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .create()
@@ -42,24 +41,13 @@ class Step1 : Fragment() {
             }
         }
 
-        binding.infoEndurance.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.hint_endurance, null)
+        binding.infoHiper.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.zz_hint_strength_hiper, null)
             val dialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .create()
             dialog.show()
 
-            dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
-                dialog.dismiss()
-            }
-        }
-
-        binding.infoHIIT.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.hint_hiit, null)
-            val dialog = AlertDialog.Builder(requireContext())
-                .setView(dialogView)
-                .create()
-            dialog.show()
             dialogView.findViewById<android.widget.Button>(R.id.btnOK).setOnClickListener {
                 dialog.dismiss()
             }

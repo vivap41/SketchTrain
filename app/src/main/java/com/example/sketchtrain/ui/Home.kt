@@ -14,7 +14,8 @@ import com.example.sketchtrain.adapters.HomeActivityAdapter
 import com.example.sketchtrain.databinding.UiHomeBinding
 import com.example.sketchtrain.dataclasses.Routine
 import com.example.sketchtrain.dataclasses.Training
-import com.example.sketchtrain.ui.record.RoutineAct
+import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.ui.record.RoutineWorkout
 import java.time.LocalDate
 import java.util.UUID
 
@@ -24,6 +25,7 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
     private val trainingList: MutableList<Training> = mutableListOf()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var _binding: UiHomeBinding? = null
+    private val intEx = IntentExtras
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -56,9 +58,9 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
 
     private fun handleIncomingIntent(intent: Intent?) {
         intent?.let {
-            val routine = it.getSerializableExtra("ROUTINE_LIST") as? ArrayList<Routine>
-            val trainingType = it.getStringExtra("TRAINING_TYPE")
-            val trainingDesc = it.getStringExtra("TRAIN_DESCRIPTION")
+            val routine = it.getSerializableExtra(intEx.ROUTINE_LIST) as? ArrayList<Routine>
+            val trainingType = it.getStringExtra(intEx.TRAINING_TYPE)
+            val trainingDesc = it.getStringExtra(intEx.TRAINING_DESCRIPTION)
             if (routine != null && trainingType != null && trainingDesc != null) {
                 val newTraining = Training(
                     idTraining = UUID.randomUUID().toString(),
@@ -78,9 +80,9 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(training: Training) {
-        val intent = Intent(requireContext(), RoutineAct::class.java).apply {
-            putExtra("TRAINING_ID", training.idTraining)
-            putExtra("ROUTINE_LIST", training.routineList as java.io.Serializable)
+        val intent = Intent(requireContext(), RoutineWorkout::class.java).apply {
+            putExtra(intEx.TRAINING_ID, training.idTraining)
+            putExtra(intEx.ROUTINE_LIST, training.routineList as java.io.Serializable)
         }
         resultLauncher.launch(intent)
     }
