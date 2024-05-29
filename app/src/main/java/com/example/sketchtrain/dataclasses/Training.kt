@@ -7,5 +7,6 @@ data class Training(
     var description: String = "",
     var type: String = "",
     var date: String = "",
-    var routineList: MutableList <Routine> = mutableListOf()
+    var routineList: MutableList <Routine> = mutableListOf(),
+    var idUser: String
 ): Serializable

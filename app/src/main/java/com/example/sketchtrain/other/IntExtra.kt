@@ -1,6 +1,4 @@
-package com.example.sketchtrain.objects
-
-import com.example.sketchtrain.ui.MainActivity
+package com.example.sketchtrain.other
 
 object IntentExtras {
     //TRAINING
@@ -40,5 +38,7 @@ object IntentExtras {
 
     //OTHER
     const val EDITING_POSITION = "EDITING_POSITION"
+    const val REPLACE_POSITION = "REPLACE_POSITION"
+    const val IS_UPDATE = "IS_UPDATE"
 
 }

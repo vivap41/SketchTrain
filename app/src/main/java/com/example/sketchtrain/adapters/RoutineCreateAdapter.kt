@@ -38,7 +38,7 @@ class RoutineCreateAdapter(
         init {
             button.setOnClickListener {
                 val descriptionText = description.text.toString().trim()
-                listener.onClick(descriptionText, adapterPosition)
+                listener.onClick(descriptionText, adapterPosition, routineList[adapterPosition])
             }
         }
     }
@@ -101,6 +101,6 @@ class RoutineCreateAdapter(
     }
 
     interface OnItemClickListener {
-        fun onClick(descriptionText: String, position: Int)
+        fun onClick(descriptionText: String, position: Int, routine:Routine)
     }
 }

@@ -17,7 +17,7 @@ import com.example.sketchtrain.R
 import com.example.sketchtrain.adapters.RoutineCreateAdapter
 import com.example.sketchtrain.dataclasses.Exercise
 import com.example.sketchtrain.dataclasses.Routine
-import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.other.IntentExtras
 import com.example.sketchtrain.ui.MainActivity
 
 class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListener {
@@ -44,12 +44,14 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
 
         tvTrain = findViewById(R.id.tvTrainName)
 
-
+        //GET TRAINING
+        val trainId= intent.getStringExtra(intEx.TRAINING_ID)
+        val trainDate = intent.getStringExtra(intEx.TRAINING_DATE)
         val trainDescription = intent.getStringExtra(intEx.TRAINING_DESCRIPTION)
         trainDescription?.let {
             tvTrain.text = it
         }
-        val trainingType = intent.getStringExtra(intEx.TRAINING_TYPE) ?: "hypertrophy"
+        val trainingType = intent.getStringExtra(intEx.TRAINING_TYPE)
 
 
         val descriptions = getRoutineDescriptions(routines)
@@ -62,7 +64,7 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK && editingRoutineIndex != -1) {
                 val exercises = result.data?.getSerializableExtra(intEx.EXERCISE_LIST) as? MutableList<Exercise> ?: arrayListOf()
-                val desc = result.data?.getStringExtra(intEx.ROUTINE_DESCRIPTION) ?: ""
+                val desc = result.data?.getStringExtra(intEx.ROUTINE_DESCRIPTION).toString()
                 val routineToUpdate = RoutineCreateAdapter.routineList[editingRoutineIndex]
                 routineToUpdate.description = desc
                 routineToUpdate.exerciseList.clear()
@@ -77,15 +79,16 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
             val validRoutines = routines.filter { it.description.isNotBlank() }
 
             val homeIntent = Intent(this, MainActivity::class.java).apply {
-                putExtra(intEx.ROUTINE_LIST, ArrayList(validRoutines))
+                putExtra(intEx.TRAINING_ID, trainId)
+                putExtra(intEx.TRAINING_DATE, trainDate)
                 putExtra(intEx.TRAINING_TYPE, trainingType)
                 putExtra(intEx.TRAINING_DESCRIPTION, trainDescription)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                putExtra(intEx.ROUTINE_LIST, ArrayList(validRoutines))
 
             }
             startActivity(homeIntent)
+            finishAffinity()
 
-            finish()
         }
 
         val callback = object : OnBackPressedCallback(true) {
@@ -118,11 +121,12 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
             .show()
     }
 
-    override fun onClick(descriptionText: String, position: Int) {
+    override fun onClick(descriptionText: String, position: Int, routine: Routine) {
         val intent = Intent(this, ExerciseAdd::class.java).apply {
+            putExtra(intEx.ROUTINE_ID, routine.idRoutine)
             putExtra(intEx.ROUTINE_DESCRIPTION, descriptionText)
             putExtra(intEx.EDITING_POSITION, position)
-            putExtra(intEx.EXERCISE_LIST, RoutineCreateAdapter.routineList[position].exerciseList as ArrayList<Exercise>)
+            putExtra(intEx.EXERCISE_LIST, routine.exerciseList as ArrayList<Exercise>)
         }
         editingRoutineIndex = position
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/button_background"
+    android:background="@drawable/button_background3"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -15,11 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_margin="10dp"
-        android:background="@drawable/button_background_black"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:text="Exercise Name"
         android:textDirection="locale"
         android:textSize="16sp"
+        android:background="@color/none"
         app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

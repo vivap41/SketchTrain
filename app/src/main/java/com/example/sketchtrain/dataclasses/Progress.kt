@@ -6,5 +6,6 @@ data class Progress(
     val weight: String = "",
     val reps: String = "",
     val date: String = "",
-    val idExercise: Exercise
+    val idExercise: Exercise,
+    val idUser: Users
 )

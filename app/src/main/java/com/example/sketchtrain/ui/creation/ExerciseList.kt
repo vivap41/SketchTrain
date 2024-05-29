@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.adapters.ExerciseListAdapter
 import com.example.sketchtrain.dataclasses.Exercise
-import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.other.IntentExtras
 import java.util.UUID
 
 class ExerciseList : AppCompatActivity() {
@@ -32,8 +32,14 @@ class ExerciseList : AppCompatActivity() {
         exerciseRecyclerView = findViewById(R.id.exerciseRecyclerView)
 
         exerciseAdapter = ExerciseListAdapter(exerciseList, { exercise ->
-            val returnIntent = Intent()
-            returnIntent.putExtra(intEx.EXERCISE_NAME, exercise.name)
+            val replacePosition = intent.getIntExtra(intEx.REPLACE_POSITION, -1)
+            val returnIntent = Intent().apply {
+                putExtra(intEx.EXERCISE_ID, exercise.idExercise)
+                putExtra(intEx.EXERCISE_NAME, exercise.name)
+                putExtra(intEx.EXERCISE_IS_POWER, exercise.isPower)
+                putExtra(intEx.EXERCISE_MAXWEIGHT, exercise.maxWeight1Rep)
+                putExtra(intEx.REPLACE_POSITION, replacePosition)
+            }
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
         }, {
@@ -89,7 +95,7 @@ class ExerciseList : AppCompatActivity() {
     }
 
     private fun loadExercises() {
-        exerciseList.add(Exercise(idExercise = "1", name = "Bench Press"))
+        exerciseList.add(Exercise(idExercise = "1", name = "Bench Press", isPower = true))
         exerciseList.add(Exercise(idExercise = "2", name = "Incline Bench Press"))
         exerciseList.add(Exercise(idExercise = "3", name = "Decline Bench Press"))
         exerciseList.add(Exercise(idExercise = "4", name = "Dumbbell Bench Press"))
@@ -106,8 +112,8 @@ class ExerciseList : AppCompatActivity() {
         exerciseList.add(Exercise(idExercise = "15", name = "Dumbbell Curl"))
         exerciseList.add(Exercise(idExercise = "16", name = "Hammer Curl"))
         exerciseList.add(Exercise(idExercise = "17", name = "Preacher Curl"))
-        exerciseList.add(Exercise(idExercise = "18", name = "Tricep Dip"))
-        exerciseList.add(Exercise(idExercise = "19", name = "Tricep Pushdown"))
+        exerciseList.add(Exercise(idExercise = "18", name = "Triceps Dip"))
+        exerciseList.add(Exercise(idExercise = "19", name = "Triceps Pushdown"))
         exerciseList.add(Exercise(idExercise = "20", name = "Skull Crusher"))
         exerciseList.add(Exercise(idExercise = "21", name = "Overhead Tricep Extension"))
         exerciseList.add(Exercise(idExercise = "22", name = "Shoulder Press"))

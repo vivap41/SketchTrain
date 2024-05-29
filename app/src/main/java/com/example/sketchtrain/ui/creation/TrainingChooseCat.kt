@@ -1,4 +1,5 @@
 package com.example.sketchtrain.ui.creation
+
 import android.app.AlertDialog
 import android.content.Intent
 import android.widget.Toast
@@ -6,7 +7,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.sketchtrain.R
 import com.example.sketchtrain.databinding.UiTrainigChooseCatBinding
-import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.other.IntentExtras
 import com.example.sketchtrain.ui.SideMenu
 
 class TrainingChooseCat : Fragment() {
@@ -24,10 +25,19 @@ class TrainingChooseCat : Fragment() {
 
         // Listeners --> Buttons
         binding.btnHiper.setOnClickListener {
-            val intent = Intent(requireContext(), TrainingHiperName::class.java)
-            intent.putExtra(intEx.TRAINING_TYPE, "hypertrophy")
+            val intent = Intent(requireContext(), TrainingHiperName::class.java).apply {
+                putExtra(intEx.TRAINING_TYPE, "hypertrophy")
+            }
             startActivity(intent)
         }
+
+        binding.btnPower.setOnClickListener {
+            val intent = Intent(requireContext(), TrainingHiperName::class.java).apply {
+                putExtra(intEx.TRAINING_TYPE, "powerlifting")
+            }
+            startActivity(intent)
+        }
+
         // Listeners --> Dialog
         binding.infoPower.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.zz_hint_strength_power, null)
@@ -71,6 +81,7 @@ class TrainingChooseCat : Fragment() {
 
         return root
     }
+
     private fun showExitDialog() {
         AlertDialog.Builder(requireContext())
             .setMessage("Are you sure you want to skip tutorial?")
@@ -80,7 +91,8 @@ class TrainingChooseCat : Fragment() {
             .setNegativeButton("No", null)
             .show()
     }
-        override fun onDestroyView() {
+
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }

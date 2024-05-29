@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Training
-import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.other.IntentExtras
 import com.example.sketchtrain.ui.MainActivity
 import com.example.sketchtrain.ui.creation.TrainingHiperName
 
@@ -22,12 +22,12 @@ class HomeActivityAdapter(
     private var trainingList: MutableList<Training>,
     private val listener: OnItemClickListener,
     private val onTrainingClick: (Training) -> Unit
-
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class TrainingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val description: TextView = itemView.findViewById(R.id.tvTrainDesc)
         val date: TextView = itemView.findViewById(R.id.tvDate)
+
         init {
             itemView.setOnClickListener {
                 val training = trainingList[adapterPosition]
@@ -35,13 +35,10 @@ class HomeActivityAdapter(
                 listener.onItemClick(training)
             }
         }
-
-
     }
 
     inner class NewTrainingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val btnAdd: AppCompatButton = itemView.findViewById(R.id.btNew)
-
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -82,7 +79,6 @@ class HomeActivityAdapter(
                     .show()
             }
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -93,7 +89,16 @@ class HomeActivityAdapter(
         trainingList.add(training)
         notifyItemInserted(trainingList.size)
     }
-    interface OnItemClickListener{
+
+    fun updateTraining(updatedTraining: Training) {
+        val index = trainingList.indexOfFirst { it.idTraining == updatedTraining.idTraining }
+        if (index != -1) {
+            trainingList[index] = updatedTraining
+            notifyItemChanged(index)
+        }
+    }
+
+    interface OnItemClickListener {
         fun onItemClick(training: Training)
     }
 }

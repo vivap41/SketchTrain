@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sketchtrain.databinding.UiTrainingHiperNameBinding
-import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.other.IntentExtras
+import java.time.LocalDate
+import java.util.UUID
 
 
 class TrainingHiperName : AppCompatActivity() {
@@ -28,8 +30,10 @@ class TrainingHiperName : AppCompatActivity() {
             } else {
 
                 val intent = Intent(this, RoutineCreate::class.java).apply {
+                    putExtra(intEx.TRAINING_ID, UUID.randomUUID().toString())
+                    putExtra(intEx.TRAINING_DATE, LocalDate.now().toString())
                     putExtra(intEx.TRAINING_DESCRIPTION, trainDescription)
-                    intent.putExtra(intEx.TRAINING_TYPE, trainingType)
+                    putExtra(intEx.TRAINING_TYPE, trainingType)
 
                 }
                 startActivity(intent)

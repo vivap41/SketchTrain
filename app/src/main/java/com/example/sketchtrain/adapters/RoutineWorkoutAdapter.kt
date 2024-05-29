@@ -10,7 +10,7 @@ import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Routine
 
 class RoutineWorkoutAdapter(
-     val routineList: MutableList<Routine>,
+    val routineList: MutableList<Routine>,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<RoutineWorkoutAdapter.RoutineViewHolder>() {
 
@@ -20,7 +20,7 @@ class RoutineWorkoutAdapter(
 
         init {
             button.setOnClickListener {
-                listener.onClick(routineList[adapterPosition])
+                listener.onClick(routineList[adapterPosition], adapterPosition)
             }
         }
     }
@@ -36,13 +36,8 @@ class RoutineWorkoutAdapter(
     }
 
     override fun getItemCount() = routineList.size
-//
-//    fun addRoutine(routine: Routine) {
-//        this.routineList.add(routine)
-//        notifyItemInserted(this.routineList.size - 1)
-//    }
 
     interface OnItemClickListener {
-        fun onClick(routine: Routine)
+        fun onClick(routine: Routine, position: Int)
     }
 }

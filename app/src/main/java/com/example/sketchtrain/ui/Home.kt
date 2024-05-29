@@ -14,16 +14,18 @@ import com.example.sketchtrain.adapters.HomeActivityAdapter
 import com.example.sketchtrain.databinding.UiHomeBinding
 import com.example.sketchtrain.dataclasses.Routine
 import com.example.sketchtrain.dataclasses.Training
-import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.other.FirebaseManager
+import com.example.sketchtrain.other.IntentExtras
 import com.example.sketchtrain.ui.record.RoutineWorkout
-import java.time.LocalDate
-import java.util.UUID
-
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
     private lateinit var adapter: HomeActivityAdapter
     private val trainingList: MutableList<Training> = mutableListOf()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var fireauth: FirebaseAuth
     private var _binding: UiHomeBinding? = null
     private val intEx = IntentExtras
     private val binding get() = _binding!!
@@ -32,8 +34,6 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         _binding = UiHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -41,9 +41,12 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = HomeActivityAdapter(trainingList, this) { training ->
 
-        }
+        firestore = FirebaseManager().firestore
+        fireauth = FirebaseManager().fireauth
+
+
+        adapter = HomeActivityAdapter(trainingList, this) { training -> }
         binding.rvTrain.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTrain.adapter = adapter
 
@@ -58,18 +61,27 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
 
     private fun handleIncomingIntent(intent: Intent?) {
         intent?.let {
+            val isUpdate = it.getBooleanExtra(intEx.IS_UPDATE, false)
             val routine = it.getSerializableExtra(intEx.ROUTINE_LIST) as? ArrayList<Routine>
+            val idTraining = it.getStringExtra(intEx.TRAINING_ID).toString()
+            val trainingDate = it.getStringExtra(intEx.TRAINING_DATE).toString()
             val trainingType = it.getStringExtra(intEx.TRAINING_TYPE)
             val trainingDesc = it.getStringExtra(intEx.TRAINING_DESCRIPTION)
+
             if (routine != null && trainingType != null && trainingDesc != null) {
-                val newTraining = Training(
-                    idTraining = UUID.randomUUID().toString(),
+                val training = Training(
+                    idTraining = idTraining,
                     description = trainingDesc,
                     type = trainingType,
-                    date = LocalDate.now().toString(),
-                    routineList = routine.toMutableList()
+                    date = trainingDate,
+                    routineList = routine.toMutableList(),
+                    idUser = fireauth.currentUser?.uid.toString()
                 )
-                adapter.addTraining(newTraining)
+                if (isUpdate) {
+                    adapter.updateTraining(training)
+                } else {
+                    adapter.addTraining(training)
+                }
             }
         }
     }
@@ -82,7 +94,9 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
     override fun onItemClick(training: Training) {
         val intent = Intent(requireContext(), RoutineWorkout::class.java).apply {
             putExtra(intEx.TRAINING_ID, training.idTraining)
+            putExtra(intEx.TRAINING_TYPE, training.type)
             putExtra(intEx.ROUTINE_LIST, training.routineList as java.io.Serializable)
+            putExtra(intEx.TRAINING_DESCRIPTION, training.description)
         }
         resultLauncher.launch(intent)
     }

@@ -58,7 +58,7 @@
         app:layout_constraintVertical_bias="0.007">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/trainEt"
+            android:id="@+id/repEt"
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

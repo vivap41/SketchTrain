@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.adapters.ExerciseAddAdapter
 import com.example.sketchtrain.dataclasses.Exercise
-import com.example.sketchtrain.objects.IntentExtras
+import com.example.sketchtrain.other.IntentExtras
 
 class ExerciseAdd : AppCompatActivity() {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
@@ -28,11 +28,13 @@ class ExerciseAdd : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ui_exercise_add)
 
-
-        val description = intent.getStringExtra(intEx.ROUTINE_DESCRIPTION)
+        //GET ROUTINE
+        val descriptionRoutine = intent.getStringExtra(intEx.ROUTINE_DESCRIPTION)
+        val idRoutine = intent.getStringExtra(intEx.ROUTINE_ID)
         exercises = intent.getSerializableExtra(intEx.EXERCISE_LIST) as ArrayList<Exercise>
+
         val tvRout: TextView = findViewById(R.id.tvTitle)
-        tvRout.text = "$description Routine"
+        tvRout.text = "$descriptionRoutine Routine"
 
         val recyclerView: RecyclerView = findViewById(R.id.rvExerciseStr)
         exerciseAdapter = ExerciseAddAdapter(exercises, this::showOptionsDialog)
@@ -45,13 +47,24 @@ class ExerciseAdd : AppCompatActivity() {
             resultLauncher.launch(intent)
         }
 
-
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val exerciseName = result.data?.getStringExtra(intEx.EXERCISE_NAME).toString()
-                updateExerciseList(exerciseName)
+                result.data?.let { data ->
+                    val exerciseId = data.getStringExtra(intEx.EXERCISE_ID).toString()
+                    val exerciseName = data.getStringExtra(intEx.EXERCISE_NAME).toString()
+                    val exerciseIsPower = data.getBooleanExtra(intEx.EXERCISE_IS_POWER, false)
+                    val exerciseMaxWeight = data.getIntExtra(intEx.EXERCISE_MAXWEIGHT, 0)
+                    val exerciseMaxReps = data.getIntExtra(intEx.EXERCISE_MAXREPS, 0)
+                    val replacePosition = data.getIntExtra(intEx.REPLACE_POSITION, -1)
+
+                    if (replacePosition != -1) {
+                        replaceExerciseInList(replacePosition, exerciseId, exerciseName, exerciseIsPower,  exerciseMaxWeight, exerciseMaxReps)
+                    } else {
+                        updateExerciseList(exerciseId, exerciseName, exerciseIsPower, exerciseMaxWeight, exerciseMaxReps)
+                    }
+                }
             }
         }
 
@@ -59,7 +72,8 @@ class ExerciseAdd : AppCompatActivity() {
         btnFinish.setOnClickListener {
             val data = Intent().apply {
                 putExtra(intEx.EXERCISE_LIST, ArrayList(exercises))
-                putExtra(intEx.ROUTINE_DESCRIPTION, description)
+                putExtra(intEx.ROUTINE_ID, idRoutine)
+                putExtra(intEx.ROUTINE_DESCRIPTION, descriptionRoutine)
             }
             setResult(RESULT_OK, data)
             finish()
@@ -68,14 +82,12 @@ class ExerciseAdd : AppCompatActivity() {
 
     private fun showOptionsDialog(position: Int) {
         val options = arrayOf("Delete", "Replace")
-        AlertDialog.Builder(this)
-            .setTitle("Choose Option")
-            .setItems(options) { dialog, which ->
-                when (which) {
-                    0 -> deleteExercise(position)
-                    1 -> replaceExercise(position)
-                }
-            }.show()
+        AlertDialog.Builder(this).setTitle("Choose Option").setItems(options) { dialog, which ->
+            when (which) {
+                0 -> deleteExercise(position)
+                1 -> replaceExercise(position)
+            }
+        }.show()
     }
 
     private fun deleteExercise(position: Int) {
@@ -84,15 +96,27 @@ class ExerciseAdd : AppCompatActivity() {
     }
 
     private fun replaceExercise(position: Int) {
-        deleteExercise(position)
-        val intent = Intent(this, ExerciseList::class.java)
+        val intent = Intent(this, ExerciseList::class.java).apply {
+            putExtra(intEx.REPLACE_POSITION, position)
+        }
         resultLauncher.launch(intent)
     }
 
-    private fun updateExerciseList(exerciseName: String?) {
-        exerciseName?.let {
-            exercises.add(Exercise(name = it))
-            exerciseAdapter.notifyItemInserted(exercises.size - 1)
+    private fun replaceExerciseInList(position: Int, exerciseId: String?, exerciseName: String?, exerciseIsPower: Boolean,  exerciseMaxWeight: Int, exerciseMaxReps: Int) {
+        exerciseId?.let { id ->
+            exerciseName?.let { name ->
+                exercises[position] = Exercise(idExercise = id, name = name, isPower = exerciseIsPower, maxWeight1Rep = exerciseMaxWeight, maxReps = exerciseMaxReps)
+                exerciseAdapter.notifyItemChanged(position)
+            }
+        }
+    }
+
+    private fun updateExerciseList(exerciseId: String?, exerciseName: String?, exerciseIsPower: Boolean,  exerciseMaxWeight: Int, exerciseMaxReps: Int) {
+        exerciseId?.let { id ->
+            exerciseName?.let { name ->
+                exercises.add(Exercise(idExercise = id, name = name, isPower = exerciseIsPower,  maxWeight1Rep = exerciseMaxWeight, maxReps = exerciseMaxReps))
+                exerciseAdapter.notifyItemInserted(exercises.size - 1)
+            }
         }
     }
 }
