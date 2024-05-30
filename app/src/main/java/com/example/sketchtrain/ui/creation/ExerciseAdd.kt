@@ -55,14 +55,13 @@ class ExerciseAdd : AppCompatActivity() {
                     val exerciseId = data.getStringExtra(intEx.EXERCISE_ID).toString()
                     val exerciseName = data.getStringExtra(intEx.EXERCISE_NAME).toString()
                     val exerciseIsPower = data.getBooleanExtra(intEx.EXERCISE_IS_POWER, false)
-                    val exerciseMaxWeight = data.getIntExtra(intEx.EXERCISE_MAXWEIGHT, 0)
-                    val exerciseMaxReps = data.getIntExtra(intEx.EXERCISE_MAXREPS, 0)
+
                     val replacePosition = data.getIntExtra(intEx.REPLACE_POSITION, -1)
 
                     if (replacePosition != -1) {
-                        replaceExerciseInList(replacePosition, exerciseId, exerciseName, exerciseIsPower,  exerciseMaxWeight, exerciseMaxReps)
+                        replaceExerciseInList(replacePosition, exerciseId, exerciseName, exerciseIsPower)
                     } else {
-                        updateExerciseList(exerciseId, exerciseName, exerciseIsPower, exerciseMaxWeight, exerciseMaxReps)
+                        updateExerciseList(exerciseId, exerciseName, exerciseIsPower)
                     }
                 }
             }
@@ -102,19 +101,19 @@ class ExerciseAdd : AppCompatActivity() {
         resultLauncher.launch(intent)
     }
 
-    private fun replaceExerciseInList(position: Int, exerciseId: String?, exerciseName: String?, exerciseIsPower: Boolean,  exerciseMaxWeight: Int, exerciseMaxReps: Int) {
+    private fun replaceExerciseInList(position: Int, exerciseId: String?, exerciseName: String?, exerciseIsPower: Boolean) {
         exerciseId?.let { id ->
             exerciseName?.let { name ->
-                exercises[position] = Exercise(idExercise = id, name = name, isPower = exerciseIsPower, maxWeight1Rep = exerciseMaxWeight, maxReps = exerciseMaxReps)
+                exercises[position] = Exercise(idExercise = id, name = name, isPower = exerciseIsPower)
                 exerciseAdapter.notifyItemChanged(position)
             }
         }
     }
 
-    private fun updateExerciseList(exerciseId: String?, exerciseName: String?, exerciseIsPower: Boolean,  exerciseMaxWeight: Int, exerciseMaxReps: Int) {
+    private fun updateExerciseList(exerciseId: String?, exerciseName: String?, exerciseIsPower: Boolean) {
         exerciseId?.let { id ->
             exerciseName?.let { name ->
-                exercises.add(Exercise(idExercise = id, name = name, isPower = exerciseIsPower,  maxWeight1Rep = exerciseMaxWeight, maxReps = exerciseMaxReps))
+                exercises.add(Exercise(idExercise = id, name = name, isPower = exerciseIsPower))
                 exerciseAdapter.notifyItemInserted(exercises.size - 1)
             }
         }

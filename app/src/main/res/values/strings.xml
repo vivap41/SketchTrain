@@ -1,36 +1,36 @@
 <resources>
     <string name="app_name" translatable="false">SketchTrain</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="menu">Menu</string>
+    <string name="forgot_password" translatable="false">Forgot password?</string>
+    <string name="menu" translatable="false">Menu</string>
     <string name="sketchtrain_title" translatable="false">SketchTrain Title</string>
-    <string name="password">Password</string>
-    <string name="e_mail">Email</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="e_mail" translatable="false">Email</string>
     <string name="sketchtrain_logo" translatable="false">SketchTrain Logo</string>
-    <string name="set_up_your_new_training">Set up your new training!</string>
-    <string name="step_1">Step 1</string>
-    <string name="choose_your_training">Choose your training</string>
-    <string name="strength">Strength</string>
-    <string name="endurance">Endurance</string>
+    <string name="set_up_your_new_training" translatable="false">Set up your new training!</string>
+    <string name="step_1" translatable="false">Step 1</string>
+    <string name="choose_your_training" translatable="false">Choose your training</string>
+    <string name="strength" translatable="false">Strength</string>
+    <string name="endurance" translatable="false">Endurance</string>
     <string name="hiit" translatable="false">HIIT</string>
-    <string name="first_steps">First Steps</string>
-    <string name="hint_text_strength">Customize your training routines to achieve your goals! Choose between Powerlifting or Hypertrophy. Save your sessions with all the necessary details for a complete tracking of your progress!</string>
-    <string name="hint_text_endurance">Unleash your potential in endurance! Whether running, swimming, or more! Track your sessions with everything you need to reach your goals.</string>
-    <string name="hint_text_hit">Intensify your training with HIIT! Record your times for each exercise and follow the sequence for optimal results. Boost your performance like never before!</string>
-        <string name="sign_in">Sign In</string>
-        <string name="no_acc">No account? Sign up</string>
-        <string name="alternative_log_in">Or sign in with:</string>
-        <string name="username">Username</string>
-        <string name="sign_up">Sign Up</string>
-        <string name="already_registered_sign_in">Already Registered? Sign In!</string>
-    <string name="choose_category">Choose category</string>
-    <string name="hint_text_hiper">Maximize your muscle growth with our advanced hypertrophy system! Record every detail: sets, types of sets (normal, drop-sets, supersets, and clusters), repetitions, and key dates such as training day, start date, and end date. Build your path to a stronger and more defined body!</string>
-    <string name="hint_text_power">Master the art of powerlifting with our comprehensive tool! Organize your sessions with main and accessory exercises. Additionally, calculate your one-rep max (1RM) to optimize your progress. Get ready to surpass your limits and reach new heights of strength!</string>
-    <string name="hipetrophy">Hipetrophy</string>
+    <string name="first_steps" translatable="false">First Steps</string>
+    <string name="hint_text_strength" translatable="false">Customize your training routines to achieve your goals! Choose between Powerlifting or Hypertrophy. Save your sessions with all the necessary details for a complete tracking of your progress!</string>
+    <string name="hint_text_endurance" translatable="false">Unleash your potential in endurance! Whether running, swimming, or more! Track your sessions with everything you need to reach your goals.</string>
+    <string name="hint_text_hit" translatable="false">Intensify your training with HIIT! Record your times for each exercise and follow the sequence for optimal results. Boost your performance like never before!</string>
+        <string name="sign_in" translatable="false">Sign In</string>
+        <string name="no_acc" translatable="false">No account? Sign up</string>
+        <string name="alternative_log_in" translatable="false">Or sign in with:</string>
+        <string name="username" translatable="false">Username</string>
+        <string name="sign_up" translatable="false">Sign Up</string>
+        <string name="already_registered_sign_in" translatable="false">Already Registered? Sign In!</string>
+    <string name="choose_category" translatable="false">Choose category</string>
+    <string name="hint_text_hiper" translatable="false">Maximize your muscle growth with our advanced hypertrophy system! Record every detail: sets, types of sets (normal, drop-sets, supersets, and clusters), repetitions, and key dates such as training day, start date, and end date. Build your path to a stronger and more defined body!</string>
+    <string name="hint_text_power" translatable="false">Master the art of powerlifting with our comprehensive tool! Organize your sessions with main and accessory exercises. Additionally, calculate your one-rep max (1RM) to optimize your progress. Get ready to surpass your limits and reach new heights of strength!</string>
+    <string name="hipetrophy" translatable="false">Hipetrophy</string>
     <string name="powerlifting" translatable="false">Powerlifting</string>
-    <string name="training_desc">Training description</string>
-    <string name="type_your_training_desc">Type your training description</string>
-    <string name="next">Next</string>
-    <string name="routine">Add routine</string>
-    <string name="routine_description">Type your routine description</string>
-    <string name="add_exercises">Add Exercises</string>
+    <string name="training_desc" translatable="false">Training description</string>
+    <string name="type_your_training_desc" translatable="false">Type your training description</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="routine" translatable="false">Add routine</string>
+    <string name="routine_description" translatable="false">Type your routine description</string>
+    <string name="add_exercises" translatable="false">Add Exercises</string>
 </resources>

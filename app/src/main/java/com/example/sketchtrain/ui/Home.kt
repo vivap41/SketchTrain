@@ -14,14 +14,17 @@ import com.example.sketchtrain.adapters.HomeActivityAdapter
 import com.example.sketchtrain.databinding.UiHomeBinding
 import com.example.sketchtrain.dataclasses.Asignation
 import com.example.sketchtrain.dataclasses.Exercise
+import com.example.sketchtrain.dataclasses.Progress
 import com.example.sketchtrain.dataclasses.Routine
 import com.example.sketchtrain.dataclasses.Sets
 import com.example.sketchtrain.dataclasses.Training
+import com.example.sketchtrain.dataclasses.Users
 import com.example.sketchtrain.other.FirebaseManager
 import com.example.sketchtrain.other.IntentExtras
 import com.example.sketchtrain.ui.record.RoutineWorkout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDate
 import java.util.UUID
 
 class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
@@ -45,7 +48,6 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         firestore = FirebaseManager().firestore
         fireauth = FirebaseManager().fireauth
 
@@ -59,11 +61,7 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
                         Exercise(
                             idExercise = exerciseMap["idExercise"].toString(),
                             name = exerciseMap["name"].toString(),
-                            maxWeight1Rep = exerciseMap["maxWeight1Rep"] as Number,
-                            isPower = exerciseMap["power"] as Boolean,
-                            setsList = exerciseMap["setsList"] as MutableList<Sets>,
-                            maxWeight = exerciseMap["maxWeight"] as Double,
-                            maxReps = exerciseMap["maxReps"] as Number
+                            isPower = exerciseMap["power"] as Boolean
                         )
                     }
 
@@ -88,7 +86,6 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
             adapter.notifyDataSetChanged()
         }
 
-
         adapter = HomeActivityAdapter(trainingList, this) { training -> }
         binding.rvTrain.layoutManager = LinearLayoutManager(requireContext())
         binding.rvTrain.adapter = adapter
@@ -106,10 +103,12 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
         intent?.let {
             val getDo = it.getStringExtra(intEx.DO)
             val routine = it.getSerializableExtra(intEx.ROUTINE_LIST) as? ArrayList<Routine>
+            val assignments = it.getSerializableExtra("ASSIGNMENTS") as? ArrayList<Asignation>
             val idTraining = it.getStringExtra(intEx.TRAINING_ID).toString()
             val trainingDate = it.getStringExtra(intEx.TRAINING_DATE).toString()
             val trainingType = it.getStringExtra(intEx.TRAINING_TYPE)
             val trainingDesc = it.getStringExtra(intEx.TRAINING_DESCRIPTION)
+            val sets = it.getSerializableExtra(intEx.SET_LIST) as? ArrayList<Sets>
 
             if (routine != null && trainingType != null && trainingDesc != null) {
                 val training = Training(
@@ -121,32 +120,18 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
                     idUser = fireauth.currentUser?.uid.toString()
                 )
                 if (getDo == "update") {
-                    routine.forEach {r ->
-                        r.exerciseList.forEach{e ->
-                            firestore.collection("Asignation")
-                                .whereEqualTo("idExercise", e.idExercise)
-                                .whereEqualTo("idRoutine", r.idRoutine)
-                                .get().addOnSuccessListener {
-                                for (document in it) {
-                                    val idAsig = document.getString("idAsignation")!!
-                                    firestore.collection("Asignation").document(idAsig).update("setsList", e.setsList)
-                                }
-                            }
-                        }
-
-                    }
+                    updateAssignments(assignments)
                     adapter.updateTraining(training)
                 } else if (getDo == "add") {
-                    routine.forEach {r ->
+                    routine.forEach { r ->
                         r.idTraining = idTraining
-                        firestore.collection("Routine").document(r.idRoutine +"").set(r)
+                        firestore.collection("Routine").document(r.idRoutine).set(r)
 
-                        r.exerciseList.forEach{e ->
+                        r.exerciseList.forEach { e ->
                             val idAsig = UUID.randomUUID().toString()
-                            val asig = Asignation(idRoutine = r.idRoutine, idExercise = e.idExercise, idAsignation = idAsig, setsList = mutableListOf())
+                            val asig = Asignation(idRoutine = r.idRoutine, idExercise = e.idExercise, idAsignation = idAsig, setsList = sets)
                             firestore.collection("Asignation").document(idAsig).set(asig)
                         }
-
                     }
                     firestore.collection("Training").document(idTraining).set(training)
                     adapter.addTraining(training)
@@ -155,6 +140,54 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
         }
     }
 
+    private fun updateAssignments(assignments: ArrayList<Asignation>?) {
+        assignments?.forEach { assignment ->
+            firestore.collection("Asignation")
+                .whereEqualTo("idExercise", assignment.idExercise)
+                .whereEqualTo("idRoutine", assignment.idRoutine)
+                .get()
+                .addOnSuccessListener { assignmentQuerySnapshot ->
+                    for (assignmentDocument in assignmentQuerySnapshot) {
+                        val idAsig = assignmentDocument.id
+                        firestore.collection("Asignation")
+                            .document(idAsig)
+                            .update("setsList", assignment.setsList)
+                            .addOnSuccessListener {
+                                createProgressRecord(assignment)
+                            }
+                    }
+                }
+        }
+    }
+    private fun createProgressRecord(assignment: Asignation) {
+        val currentDate = LocalDate.now().toString()
+        val exerciseId = assignment.idExercise
+        val userId = fireauth.currentUser?.uid.toString()
+
+        firestore.collection("Exercise").document(exerciseId).get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val exerciseName = document.getString("name") ?: "Unknown Exercise"
+                    val maxWeight = (assignment.maxWeight)
+                    val maxWeight1Rep = (assignment.maxWeight1Rep)
+
+                    val progress = Progress(
+                        idProgress = UUID.randomUUID().toString(),
+                        nameExercise = exerciseName,
+                        maxWeight = maxWeight,
+                        maxWeight1Rep = maxWeight1Rep,
+                        date = currentDate,
+                        idExercise = Exercise(idExercise = exerciseId),
+                        idUser = Users(idUser = userId)
+                    )
+
+                    firestore.collection("Progress").document(progress.idProgress).set(progress)
+                } else {
+                }
+            }
+            .addOnFailureListener { exception ->
+            }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -164,8 +197,10 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
         val intent = Intent(requireContext(), RoutineWorkout::class.java).apply {
             putExtra(intEx.TRAINING_ID, training.idTraining)
             putExtra(intEx.TRAINING_TYPE, training.type)
-            putExtra(intEx.ROUTINE_LIST, ArrayList(training.routineList) )
+            putExtra(intEx.ROUTINE_LIST, ArrayList(training.routineList))
             putExtra(intEx.TRAINING_DESCRIPTION, training.description)
+            putExtra("ASSIGNMENTS", ArrayList<Asignation>())
+
         }
         resultLauncher.launch(intent)
     }

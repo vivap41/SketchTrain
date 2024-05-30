@@ -22,11 +22,6 @@
         android:layout_width="359dp"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Welcome," />
+        android:text="Welcome!" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-----" />
 </LinearLayout>

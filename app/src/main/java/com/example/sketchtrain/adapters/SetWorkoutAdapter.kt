@@ -11,7 +11,7 @@ import com.example.sketchtrain.dataclasses.Sets
 import com.google.android.material.textfield.TextInputEditText
 
 class SetWorkoutAdapter(
-    val setList: MutableList<Sets>,
+    var setList: MutableList<Sets>,
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -51,34 +51,30 @@ class SetWorkoutAdapter(
             val set = setList[position]
             holder.weight.setText(set.weight.toString())
             holder.reps.setText(set.reps.toString())
+
+            holder.weight.addTextChangedListener { text ->
+                val weight = text.toString().toDoubleOrNull() ?: 0.0
+                setList[position].weight = weight
+            }
+
+            holder.reps.addTextChangedListener { text ->
+                val reps = text.toString().toIntOrNull() ?: 0
+                setList[position].reps = reps
+            }
+
+            holder.itemView.setOnClickListener {
+                listener.onClick(set.weight, set.reps, position, set)
+            }
         } else if (holder is FooterViewHolder) {
             holder.addSetButton.setOnClickListener {
-                if (setList.isNotEmpty()) {
-                    val lastSet = setList.last()
-                    val weightText = lastSet.weight
-                    val repsText = lastSet.reps
-
-                    if (weightText != null && repsText != null) {
-                        val newSet = Sets(
-                            number = counter,
-                            weight = weightText,
-                            reps = repsText
-                        )
-                        setList.add(newSet)
-                        counter++
-                        notifyItemInserted(setList.size - 1)
-                    }
-                } else {
-                    // Manejar el caso cuando setList está vacío
-                    val newSet = Sets(
-                        number = counter,
-                        weight = 0.0, // o algún valor predeterminado
-                        reps = 0 // o algún valor predeterminado
-                    )
-                    setList.add(newSet)
-                    counter++
-                    notifyItemInserted(setList.size - 1)
-                }
+                val newSet = Sets(
+                    number = counter,
+                    weight = 0.0,
+                    reps = 0
+                )
+                setList.add(newSet)
+                counter++
+                notifyItemInserted(setList.size - 1)
             }
         }
     }
@@ -88,7 +84,6 @@ class SetWorkoutAdapter(
     override fun getItemViewType(position: Int): Int {
         return if (position == setList.size) FOOTER_VIEW_TYPE else ITEM_VIEW_TYPE
     }
-
 
     fun updateAllSets() {
         for (i in 0 until setList.size) {

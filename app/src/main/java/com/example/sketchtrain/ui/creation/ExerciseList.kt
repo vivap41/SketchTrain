@@ -6,7 +6,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.widget.EditText
+import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +16,7 @@ import com.example.sketchtrain.R
 import com.example.sketchtrain.adapters.ExerciseListAdapter
 import com.example.sketchtrain.dataclasses.Exercise
 import com.example.sketchtrain.other.IntentExtras
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.UUID
 
 class ExerciseList : AppCompatActivity() {
@@ -37,7 +40,6 @@ class ExerciseList : AppCompatActivity() {
                 putExtra(intEx.EXERCISE_ID, exercise.idExercise)
                 putExtra(intEx.EXERCISE_NAME, exercise.name)
                 putExtra(intEx.EXERCISE_IS_POWER, exercise.isPower)
-                putExtra(intEx.EXERCISE_MAXWEIGHT, exercise.maxWeight1Rep)
                 putExtra(intEx.REPLACE_POSITION, replacePosition)
             }
             setResult(Activity.RESULT_OK, returnIntent)
@@ -60,7 +62,7 @@ class ExerciseList : AppCompatActivity() {
             }
         })
 
-        loadExercises()
+        loadExercisesFromFirestore()
     }
 
     private fun filterExercises(query: String) {
@@ -70,14 +72,19 @@ class ExerciseList : AppCompatActivity() {
 
     private fun showAddExerciseDialog() {
         val builder = AlertDialog.Builder(this)
-        val input = EditText(this)
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(R.layout.new_exercise_dialog, null)
+        val exerciseNameEditText: EditText = dialogView.findViewById(R.id.exerciseNameEditText)
+        val powerSwitch: Switch = dialogView.findViewById(R.id.powerSwitch)
+
         builder.setTitle("New Exercise")
-        builder.setView(input)
+        builder.setView(dialogView)
 
         builder.setPositiveButton("OK") { dialog, _ ->
-            val exerciseName = input.text.toString()
+            val exerciseName = exerciseNameEditText.text.toString()
+            val isPower = powerSwitch.isChecked
             if (exerciseName.isNotBlank()) {
-                addNewExercise(exerciseName)
+                addNewExercise(exerciseName, isPower)
             }
             dialog.dismiss()
         }
@@ -88,53 +95,43 @@ class ExerciseList : AppCompatActivity() {
         builder.show()
     }
 
-    private fun addNewExercise(exerciseName: String) {
-        val newExercise = Exercise(idExercise = UUID.randomUUID().toString(), name = exerciseName)
+    private fun addNewExercise(exerciseName: String, isPower: Boolean) {
+        val newExercise = Exercise(idExercise = UUID.randomUUID().toString(), name = exerciseName, isPower = isPower)
         exerciseList.add(newExercise)
         exerciseAdapter.notifyItemInserted(exerciseList.size - 1)
+        uploadExerciseToFirestore(newExercise)  // Subir a Firestore
     }
 
-    private fun loadExercises() {
-        exerciseList.add(Exercise(idExercise = "1", name = "Bench Press", isPower = true))
-        exerciseList.add(Exercise(idExercise = "2", name = "Incline Bench Press"))
-        exerciseList.add(Exercise(idExercise = "3", name = "Decline Bench Press"))
-        exerciseList.add(Exercise(idExercise = "4", name = "Dumbbell Bench Press"))
-        exerciseList.add(Exercise(idExercise = "5", name = "Chest Fly"))
-        exerciseList.add(Exercise(idExercise = "6", name = "Incline Dumbbell Fly"))
-        exerciseList.add(Exercise(idExercise = "7", name = "Pec Deck"))
-        exerciseList.add(Exercise(idExercise = "8", name = "Lat Pulldown"))
-        exerciseList.add(Exercise(idExercise = "9", name = "Seated Row"))
-        exerciseList.add(Exercise(idExercise = "10", name = "Bent Over Row"))
-        exerciseList.add(Exercise(idExercise = "11", name = "One Arm Dumbbell Row"))
-        exerciseList.add(Exercise(idExercise = "12", name = "Pull Up"))
-        exerciseList.add(Exercise(idExercise = "13", name = "Deadlift"))
-        exerciseList.add(Exercise(idExercise = "14", name = "Barbell Curl"))
-        exerciseList.add(Exercise(idExercise = "15", name = "Dumbbell Curl"))
-        exerciseList.add(Exercise(idExercise = "16", name = "Hammer Curl"))
-        exerciseList.add(Exercise(idExercise = "17", name = "Preacher Curl"))
-        exerciseList.add(Exercise(idExercise = "18", name = "Triceps Dip"))
-        exerciseList.add(Exercise(idExercise = "19", name = "Triceps Pushdown"))
-        exerciseList.add(Exercise(idExercise = "20", name = "Skull Crusher"))
-        exerciseList.add(Exercise(idExercise = "21", name = "Overhead Tricep Extension"))
-        exerciseList.add(Exercise(idExercise = "22", name = "Shoulder Press"))
-        exerciseList.add(Exercise(idExercise = "23", name = "Lateral Raise"))
-        exerciseList.add(Exercise(idExercise = "24", name = "Front Raise"))
-        exerciseList.add(Exercise(idExercise = "25", name = "Reverse Fly"))
-        exerciseList.add(Exercise(idExercise = "26", name = "Leg Press"))
-        exerciseList.add(Exercise(idExercise = "27", name = "Squat"))
-        exerciseList.add(Exercise(idExercise = "28", name = "Leg Extension"))
-        exerciseList.add(Exercise(idExercise = "29", name = "Leg Curl"))
-        exerciseList.add(Exercise(idExercise = "30", name = "Lunge"))
-        exerciseList.add(Exercise(idExercise = "31", name = "Calf Raise"))
-        exerciseList.add(Exercise(idExercise = "32", name = "Hip Thrust"))
-        exerciseList.add(Exercise(idExercise = "33", name = "Bulgarian Split Squat"))
-        exerciseList.add(Exercise(idExercise = "34", name = "Glute Bridge"))
-        exerciseList.add(Exercise(idExercise = "35", name = "Hack Squat"))
-        exerciseList.add(Exercise(idExercise = "36", name = "Seated Calf Raise"))
-        exerciseList.add(Exercise(idExercise = "37", name = "Standing Calf Raise"))
-        exerciseList.add(Exercise(idExercise = "38", name = "Cable Fly"))
-        exerciseList.add(Exercise(idExercise = "39", name = "Cable Crossover"))
-        exerciseList.add(Exercise(idExercise = "40", name = "Face Pull"))
-        exerciseAdapter.notifyDataSetChanged()
+    private fun loadExercisesFromFirestore() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Exercises")
+            .get()
+            .addOnSuccessListener { result ->
+                exerciseList.clear()
+                for (document in result) {
+                    val exercise = Exercise(
+                        idExercise = document.getString("idExercise") ?: UUID.randomUUID().toString(),
+                        name = document.getString("name") ?: "",
+                        isPower = document.getBoolean("isPower") ?: false
+                    )
+                    exerciseList.add(exercise)
+                }
+                exerciseAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { e ->
+                println("Error getting documents: $e")
+            }
+    }
+
+    private fun uploadExerciseToFirestore(exercise: Exercise) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("Exercises")
+            .add(exercise)
+            .addOnSuccessListener { documentReference ->
+                println("DocumentSnapshot added with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                println("Error adding document: $e")
+            }
     }
 }
