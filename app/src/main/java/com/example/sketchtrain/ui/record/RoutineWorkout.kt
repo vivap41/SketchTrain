@@ -64,7 +64,7 @@ class RoutineWorkout : AppCompatActivity(), RoutineWorkoutAdapter.OnItemClickLis
                 putExtra(intEx.TRAINING_DESCRIPTION, trainingDescription)
                 putExtra(intEx.ROUTINE_LIST, ArrayList(routines))
                 putExtra(intEx.TRAINING_DATE, LocalDate.now().toString())
-                putExtra(intEx.IS_UPDATE, true)
+                putExtra(intEx.DO, "update").toString()
             }
             setResult(RESULT_OK, intent)
             finish()

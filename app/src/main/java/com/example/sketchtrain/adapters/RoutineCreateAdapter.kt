@@ -1,22 +1,17 @@
 package com.example.sketchtrain.adapters
 
-import android.content.Context
-import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sketchtrain.R
 import com.example.sketchtrain.dataclasses.Routine
 import com.google.android.material.textfield.TextInputEditText
 import java.util.UUID
+
 class RoutineCreateAdapter(
     val routineList: MutableList<Routine>,
     private val listener: OnItemClickListener
@@ -40,6 +35,16 @@ class RoutineCreateAdapter(
                 val descriptionText = description.text.toString().trim()
                 listener.onClick(descriptionText, adapterPosition, routineList[adapterPosition])
             }
+
+            description.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    routineList[adapterPosition].description = s.toString().trim()
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            })
         }
     }
 
@@ -63,15 +68,18 @@ class RoutineCreateAdapter(
             holder.description.setText(routine.description)
         } else if (holder is FooterViewHolder) {
             holder.addRoutineButton.setOnClickListener {
-                val lastRoutine = routineList.lastOrNull()
-                val lastDescription = lastRoutine?.description?.trim()
+                updateAllRoutines()
+                if (routineList.isNotEmpty()) {
+                    val lastRoutine = routineList.lastOrNull()
+                    val lastDescription = lastRoutine?.description?.trim()
 
-                if (!lastDescription.isNullOrEmpty() && routineList.none { it.description == lastDescription }) {
-                    val newRoutine = Routine(
-                        idRoutine = UUID.randomUUID().toString(),
-                        description = lastDescription
-                    )
-                    addRoutine(newRoutine)
+                    if (!lastDescription.isNullOrEmpty() && routineList.none { it.description == lastDescription }) {
+                        val newRoutine = Routine(
+                            idRoutine = UUID.randomUUID().toString(),
+                            description = lastDescription
+                        )
+                        addRoutine(newRoutine)
+                    }
                 }
 
                 addRoutine(Routine(idRoutine = UUID.randomUUID().toString(), description = ""))
@@ -101,6 +109,6 @@ class RoutineCreateAdapter(
     }
 
     interface OnItemClickListener {
-        fun onClick(descriptionText: String, position: Int, routine:Routine)
+        fun onClick(descriptionText: String, position: Int, routine: Routine)
     }
 }

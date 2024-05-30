@@ -5,5 +5,6 @@ import java.io.Serializable
 data class Routine(
     var idRoutine: String = "",
     var description: String = "",
-    var exerciseList: MutableList <Exercise> = mutableListOf()
+    var exerciseList: MutableList <Exercise> = mutableListOf(),
+    var idTraining: String = ""
 ): Serializable

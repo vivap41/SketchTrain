@@ -39,6 +39,6 @@ object IntentExtras {
     //OTHER
     const val EDITING_POSITION = "EDITING_POSITION"
     const val REPLACE_POSITION = "REPLACE_POSITION"
-    const val IS_UPDATE = "IS_UPDATE"
+    const val DO = "DO"
 
 }

@@ -19,10 +19,11 @@ import com.example.sketchtrain.dataclasses.Exercise
 import com.example.sketchtrain.dataclasses.Routine
 import com.example.sketchtrain.other.IntentExtras
 import com.example.sketchtrain.ui.MainActivity
+import java.util.UUID
 
 class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListener {
 
-    private lateinit var RoutineCreateAdapter: RoutineCreateAdapter
+    private lateinit var routineCreateAdapter: RoutineCreateAdapter
     private lateinit var rvExStr: RecyclerView
     private lateinit var btnFinish: ImageView
     private lateinit var tvTrain: TextView
@@ -36,16 +37,16 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
         setContentView(R.layout.ui_routine_create)
 
         rvExStr = findViewById(R.id.rvRoutineStr)
-        val routines = mutableListOf(Routine())
-        RoutineCreateAdapter = RoutineCreateAdapter(routines, this)
-        rvExStr.adapter = RoutineCreateAdapter
+        val routines = mutableListOf(Routine(idRoutine = UUID.randomUUID().toString()))
+        routineCreateAdapter = RoutineCreateAdapter(routines, this)
+        rvExStr.adapter = routineCreateAdapter
         rvExStr.layoutManager = LinearLayoutManager(this)
         rvExStr.setHasFixedSize(true)
 
         tvTrain = findViewById(R.id.tvTrainName)
 
         //GET TRAINING
-        val trainId= intent.getStringExtra(intEx.TRAINING_ID)
+        val trainId = intent.getStringExtra(intEx.TRAINING_ID)
         val trainDate = intent.getStringExtra(intEx.TRAINING_DATE)
         val trainDescription = intent.getStringExtra(intEx.TRAINING_DESCRIPTION)
         trainDescription?.let {
@@ -53,30 +54,24 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
         }
         val trainingType = intent.getStringExtra(intEx.TRAINING_TYPE)
 
-
-        val descriptions = getRoutineDescriptions(routines)
-        descriptions.forEach { description ->
-            println(description)
-        }
-
         resultLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == Activity.RESULT_OK && editingRoutineIndex != -1) {
                 val exercises = result.data?.getSerializableExtra(intEx.EXERCISE_LIST) as? MutableList<Exercise> ?: arrayListOf()
                 val desc = result.data?.getStringExtra(intEx.ROUTINE_DESCRIPTION).toString()
-                val routineToUpdate = RoutineCreateAdapter.routineList[editingRoutineIndex]
+                val routineToUpdate = routineCreateAdapter.routineList[editingRoutineIndex]
                 routineToUpdate.description = desc
                 routineToUpdate.exerciseList.clear()
                 routineToUpdate.exerciseList.addAll(exercises)
-                RoutineCreateAdapter.notifyItemChanged(editingRoutineIndex)
+                routineCreateAdapter.notifyItemChanged(editingRoutineIndex)
             }
         }
 
         btnFinish = findViewById(R.id.btFinish)
         btnFinish.setOnClickListener {
-            RoutineCreateAdapter.updateAllRoutines()
-            val validRoutines = routines.filter { it.description.isNotBlank() }
+            routineCreateAdapter.updateAllRoutines()
+            val validRoutines = routineCreateAdapter.routineList.filter { it.description.isNotBlank() }
 
             val homeIntent = Intent(this, MainActivity::class.java).apply {
                 putExtra(intEx.TRAINING_ID, trainId)
@@ -84,11 +79,10 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
                 putExtra(intEx.TRAINING_TYPE, trainingType)
                 putExtra(intEx.TRAINING_DESCRIPTION, trainDescription)
                 putExtra(intEx.ROUTINE_LIST, ArrayList(validRoutines))
-
+                putExtra(intEx.DO,"add")
             }
             startActivity(homeIntent)
             finishAffinity()
-
         }
 
         val callback = object : OnBackPressedCallback(true) {
@@ -107,11 +101,6 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
         }
         onBackPressedDispatcher.addCallback(this, callback)
     }
-
-    private fun getRoutineDescriptions(routines: List<Routine>): List<String> {
-        return routines.map { it.description }
-    }
-
 
     private fun showExitDialog() {
         AlertDialog.Builder(this)
@@ -132,5 +121,4 @@ class RoutineCreate : AppCompatActivity(), RoutineCreateAdapter.OnItemClickListe
 
         resultLauncher.launch(intent)
     }
-
 }
