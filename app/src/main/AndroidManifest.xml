@@ -37,10 +37,6 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.creation.TrainingChooseCat"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".ui.creation.TrainingHiperName"
             android:exported="true">
         </activity>

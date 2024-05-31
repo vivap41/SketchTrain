@@ -10,7 +10,7 @@ import com.example.sketchtrain.databinding.UiTrainigChooseCatBinding
 import com.example.sketchtrain.other.IntentExtras
 import com.example.sketchtrain.ui.SideMenu
 
-class TrainingChooseCat : Fragment() {
+class TrainingChooseCat : Fragment(){
     private var _binding: UiTrainigChooseCatBinding? = null
     private val binding get() = _binding!!
     private val intEx = IntentExtras
