@@ -17,6 +17,7 @@ object IntentExtras {
     const val EXERCISE_ID = "EXERCISE_ID"
     const val EXERCISE_NAME = "EXERCISE_NAME"
     const val EXERCISE_IS_POWER = "EXERCISE_IS_POWER"
+    const val EXERCISE = "EXERCISE"
 //    const val EXERCISE_MAXWEIGHT = "EXERCISE_MAXWEIGHT"
 //    const val EXERCISE_MAXREPS = "EXERCISE_MAXREPS"
 

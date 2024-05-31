@@ -37,14 +37,27 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
                     }
-//                    else {
-//                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-//
-//                    }
+                    else {
+                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
             } else {
                 Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
 
+            }
+        }
+        binding.tvForgPass.setOnClickListener {
+            val email = binding.emailEt.text.toString()
+            if (email.isNotEmpty()) {
+                firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(this, "Reset Email Sent Successfully", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -53,7 +66,7 @@ class SignInActivity : AppCompatActivity() {
                 if (System.currentTimeMillis() - lastPressedTime < 2000) {
                     finishAffinity()
                 } else {
-//                    Toast.makeText(applicationContext, "Press back again to exit", Toast.LENGTH_SHORT).show()
+
                     lastPressedTime = System.currentTimeMillis()
                 }
             }
