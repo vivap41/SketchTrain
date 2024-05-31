@@ -154,7 +154,7 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
                     for (assignmentDocument in assignmentQuerySnapshot) {
                         val idAsig = assignmentDocument.getString("idAsignation")!!
                         val map = hashMapOf(
-                            "maxWeight" to maxWeight?.toInt(),
+                            "maxWeight" to maxWeight,
                             "setsList" to assignment.setsList
                         )
                         firestore.collection("Asignation")
