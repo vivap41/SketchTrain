@@ -34,6 +34,21 @@ class HomeActivityAdapter(
                 onTrainingClick(training)
                 listener.onItemClick(training)
             }
+            itemView.setOnLongClickListener {
+                val training = trainingList[adapterPosition]
+                AlertDialog.Builder(itemView.context)
+                    .setMessage("Are you sure you want to delete this training?")
+                    .setPositiveButton("Yes") { dialog, which ->
+                        removeTraining(training)
+                        listener.onLongItemClick(training)
+                         }
+                    .setNegativeButton("No", null)
+                    .show()
+
+
+                true
+            }
+
         }
     }
 
@@ -98,7 +113,16 @@ class HomeActivityAdapter(
         }
     }
 
+    fun removeTraining(training: Training) {
+        val index = trainingList.indexOf(training)
+        if (index != -1) {
+            trainingList.removeAt(index)
+            notifyItemRemoved(index)
+        }
+    }
     interface OnItemClickListener {
         fun onItemClick(training: Training)
+        fun onLongItemClick(training: Training)
     }
+
 }

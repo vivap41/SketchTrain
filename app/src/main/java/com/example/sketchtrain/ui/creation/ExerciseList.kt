@@ -110,7 +110,7 @@ class ExerciseList : AppCompatActivity() {
                 exerciseList.clear()
                 for (document in result) {
                     val exercise = Exercise(
-                        idExercise = document.getString("idExercise") ?: UUID.randomUUID().toString(),
+                        idExercise = document.getString("idExercise") !! , //:UUID.randomUUID().toString(),
                         name = document.getString("name") ?: "",
                         isPower = document.getBoolean("isPower") ?: false
                     )

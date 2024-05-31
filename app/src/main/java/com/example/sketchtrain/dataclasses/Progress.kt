@@ -6,6 +6,6 @@ data class Progress(
     val maxWeight: Number = 0,
     val maxWeight1Rep: Number =0,
     val date: String = "",
-    val idExercise: Exercise,
-    val idUser: Users
+    val idExercise: String = "",
+    val idUser: String = ""
 )

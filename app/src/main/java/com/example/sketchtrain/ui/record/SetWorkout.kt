@@ -3,6 +3,7 @@ package com.example.sketchtrain.ui.record
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -29,7 +30,10 @@ class SetWorkout : AppCompatActivity(), SetWorkoutAdapter.OnItemClickListener {
 
         firestore = FirebaseFirestore.getInstance()
 
+        val exerciName : TextView = findViewById(R.id.tvExerciseName)
+        exerciName.text = intent.getStringExtra(intEx.EXERCISE_NAME)
         rvSets = findViewById(R.id.rvSets)
+
         exerciseId = intent.getStringExtra(intEx.EXERCISE_ID)
         routineId = intent.getStringExtra(intEx.ROUTINE_ID)
         trainingType = intent.getStringExtra(intEx.TRAINING_TYPE).toString()
@@ -79,8 +83,8 @@ class SetWorkout : AppCompatActivity(), SetWorkoutAdapter.OnItemClickListener {
                             document.get("setsList") as? List<HashMap<String, Any>> ?: emptyList()
                         val setsList = sets.mapNotNull { map ->
                             Sets(
-                                weight = map["weight"] as? Double ?: 0.0,
-                                reps = map["reps"] as? Int ?: 0,
+                                weight = (map["weight"] as? Long)!!.toInt(),
+                                reps = (map["reps"] as? Long)?.toInt() ?: 0 ,
 
                             )
                         }
@@ -94,8 +98,8 @@ class SetWorkout : AppCompatActivity(), SetWorkoutAdapter.OnItemClickListener {
         }
     }
 
-    private fun getMaxWeight(sets: List<Sets>): Double {
-        return sets.maxByOrNull { it.weight }?.weight ?: 0.0
+    private fun getMaxWeight(sets: List<Sets>): Int {
+        return sets.maxByOrNull { it.weight }?.weight ?: 0
     }
 
     private fun calculateAndShow1RM() {
@@ -120,6 +124,6 @@ class SetWorkout : AppCompatActivity(), SetWorkoutAdapter.OnItemClickListener {
         alert.show()
     }
 
-    override fun onClick(weightText: Double, repsText: Int, position: Int, set: Sets) {
+    override fun onClick(weightText: Int, repsText: Int, position: Int, set: Sets) {
     }
 }

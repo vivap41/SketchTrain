@@ -1,8 +1,12 @@
 package com.example.sketchtrain.adapters
 
+import android.content.Context
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
@@ -53,13 +57,21 @@ class SetWorkoutAdapter(
             holder.reps.setText(set.reps.toString())
 
             holder.weight.addTextChangedListener { text ->
-                val weight = text.toString().toDoubleOrNull() ?: 0.0
+                val weight = text.toString().toIntOrNull() ?: 0
                 setList[position].weight = weight
             }
-
             holder.reps.addTextChangedListener { text ->
                 val reps = text.toString().toIntOrNull() ?: 0
                 setList[position].reps = reps
+            }
+            holder.reps.setOnEditorActionListener { v, actionId, event ->
+                if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    val imm = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v.windowToken, 0)
+                    true
+                } else {
+                    false
+                }
             }
 
             holder.itemView.setOnClickListener {
@@ -69,7 +81,7 @@ class SetWorkoutAdapter(
             holder.addSetButton.setOnClickListener {
                 val newSet = Sets(
                     number = counter,
-                    weight = 0.0,
+                    weight = 0,
                     reps = 0
                 )
                 setList.add(newSet)
@@ -89,7 +101,7 @@ class SetWorkoutAdapter(
         for (i in 0 until setList.size) {
             val holder = recyclerView.findViewHolderForAdapterPosition(i) as? SetsViewHolder
             holder?.let {
-                val weightText = it.weight.text.toString().toDoubleOrNull() ?: 0.0
+                val weightText = it.weight.text.toString().toIntOrNull() ?: 0
                 val repsText = it.reps.text.toString().toIntOrNull() ?: 0
                 setList[i].weight = weightText
                 setList[i].reps = repsText
@@ -98,6 +110,6 @@ class SetWorkoutAdapter(
     }
 
     interface OnItemClickListener {
-        fun onClick(weightText: Double, repsText: Int, position: Int, set: Sets)
+        fun onClick(weightText: Int, repsText: Int, position: Int, set: Sets)
     }
 }

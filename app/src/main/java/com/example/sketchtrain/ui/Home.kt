@@ -3,9 +3,11 @@ package com.example.sketchtrain.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -142,33 +144,41 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
 
     private fun updateAssignments(assignments: ArrayList<Asignation>?) {
         assignments?.forEach { assignment ->
+            val maxWeight = assignment.setsList?.maxByOrNull { it.weight }?.weight
+
             firestore.collection("Asignation")
                 .whereEqualTo("idExercise", assignment.idExercise)
                 .whereEqualTo("idRoutine", assignment.idRoutine)
                 .get()
                 .addOnSuccessListener { assignmentQuerySnapshot ->
                     for (assignmentDocument in assignmentQuerySnapshot) {
-                        val idAsig = assignmentDocument.id
+                        val idAsig = assignmentDocument.getString("idAsignation")!!
+                        val map = hashMapOf(
+                            "maxWeight" to maxWeight?.toInt(),
+                            "setsList" to assignment.setsList
+                        )
                         firestore.collection("Asignation")
                             .document(idAsig)
-                            .update("setsList", assignment.setsList)
+                            .update(map)
                             .addOnSuccessListener {
-                                createProgressRecord(assignment)
+                            Log.d("TAG", "FUNCIONA GENTEEEEE")
+                                createProgressRecord(assignment, maxWeight!!.toInt())
                             }
                     }
                 }
         }
     }
-    private fun createProgressRecord(assignment: Asignation) {
+    private fun createProgressRecord(assignment: Asignation, maxWeight: Int) {
         val currentDate = LocalDate.now().toString()
         val exerciseId = assignment.idExercise
+        Log.d("TAG", exerciseId +"XD")
         val userId = fireauth.currentUser?.uid.toString()
 
-        firestore.collection("Exercise").document(exerciseId).get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    val exerciseName = document.getString("name") ?: "Unknown Exercise"
-                    val maxWeight = (assignment.maxWeight)
+        firestore.collection("Exercises").
+            whereEqualTo("idExercise", exerciseId).get()
+            .addOnSuccessListener {
+                for(doc in it){
+                    val exerciseName = doc.getString("name") ?: "Unknown Exercise"
                     val maxWeight1Rep = (assignment.maxWeight1Rep)
 
                     val progress = Progress(
@@ -177,12 +187,11 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
                         maxWeight = maxWeight,
                         maxWeight1Rep = maxWeight1Rep,
                         date = currentDate,
-                        idExercise = Exercise(idExercise = exerciseId),
-                        idUser = Users(idUser = userId)
+                        idExercise = exerciseId,
+                        idUser = userId
                     )
 
-                    firestore.collection("Progress").document(progress.idProgress).set(progress)
-                } else {
+                    firestore.collection("Progress").document(progress.idProgress + UUID.randomUUID().toString()).set(progress)
                 }
             }
             .addOnFailureListener { exception ->
@@ -203,5 +212,9 @@ class Home : Fragment(), HomeActivityAdapter.OnItemClickListener {
 
         }
         resultLauncher.launch(intent)
+    }
+
+    override fun onLongItemClick(training: Training) {
+        firestore.collection("Training").document(training.idTraining).delete()
     }
 }

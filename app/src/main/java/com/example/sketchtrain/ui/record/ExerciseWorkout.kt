@@ -36,7 +36,6 @@ class ExerciseWorkout : AppCompatActivity(), ExerciseWorkoutAdapter.OnItemClickL
         trainingType = intent.getStringExtra(intEx.TRAINING_TYPE).toString()
         updatedSets = intent.getSerializableExtra(intEx.SET_LIST) as? MutableList<Sets> ?: mutableListOf()
 
-        // Inicializar las asignaciones para cada ejercicio
         exercises.forEach { exercise ->
             assignments.add(Asignation(idRoutine = routineId ?: "", idExercise = exercise.idExercise, setsList = updatedSets))
         }
@@ -76,6 +75,7 @@ class ExerciseWorkout : AppCompatActivity(), ExerciseWorkoutAdapter.OnItemClickL
         editingExerciseIndex = position
         val intent = Intent(this, SetWorkout::class.java).apply {
             putExtra(intEx.EXERCISE_ID, selectedExercise.idExercise)
+            putExtra(intEx.EXERCISE_NAME, selectedExercise.name)
             putExtra(intEx.EXERCISE_IS_POWER, selectedExercise.isPower)
             putExtra(intEx.TRAINING_TYPE, trainingType)
             putExtra(intEx.ROUTINE_ID, routineId)
@@ -86,9 +86,9 @@ class ExerciseWorkout : AppCompatActivity(), ExerciseWorkoutAdapter.OnItemClickL
     }
 
     private fun updateExerciseSets(exerciseId: String, updatedSets: MutableList<Sets>) {
-        // Encontrar la asignación correspondiente y actualizar los sets
         val assignment = assignments.find { it.idExercise == exerciseId }
         assignment?.setsList = updatedSets
+
         exerciseAdapter.notifyItemChanged(editingExerciseIndex)
     }
 }

@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.home -> replaceFragment(Home())
                 R.id.settings -> replaceFragment(UserOptions())
+                R.id.progress -> replaceFragment(ProgressFragment())
                 else -> {}
             }
             true
